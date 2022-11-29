@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\bin\Debug\net6.0\HorseManager2022.exe
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\bin\Debug\net6.0\HorseManager2022.deps.json
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\bin\Debug\net6.0\HorseManager2022.runtimeconfig.json
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\bin\Debug\net6.0\HorseManager2022.dll
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\bin\Debug\net6.0\HorseManager2022.pdb
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.AssemblyInfo.cs
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.dll
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\refint\HorseManager2022.dll
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.pdb
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\HorseManager2022.genruntimeconfig.cache
+C:\Users\User\source\repos\HorseManager2022\HorseManager2022\obj\Debug\net6.0\ref\HorseManager2022.dll
