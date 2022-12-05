@@ -23,6 +23,8 @@ namespace HorseManager2022.UI
             }
         }
 
+        
+        // Constructor
         public ScreenMenu(string title, ScreenMenu? previousScreen = null)
         {
             this.title = title;
@@ -42,8 +44,8 @@ namespace HorseManager2022.UI
         {
             // Variables
             Option? selectedOption = null;
-            bool isOptionInvalid = false;
             string title = this.title;
+            string mark = "";
             title = title.PadLeft((38 / 2) + (title.Length / 2)).PadRight(37);
 
             // Wait for option
@@ -59,25 +61,25 @@ namespace HorseManager2022.UI
                 // Display Options
                 for (int i = 0; i < this.options.Count; i++)
                 {
-                    string text = this.options[i].text.PadRight(34, ' ');
-                    // Console.WriteLine("| " + (i + 1) + " - " + text + "|");
-                    string mark = (i == this.selectedPosition) ? "X" : " ";
+                    string text = this.options[i].text.PadRight(32, ' ');
+                    mark = (i == this.selectedPosition) ? "X" : " ";
                     Console.WriteLine("| [" + mark + "] - " + text + "|");
                     Console.WriteLine("|                                       |");
                 }
 
                 // Display Back / Exit Option
+                mark = (this.options.Count == this.selectedPosition) ? "X" : " ";
                 if (this.isInitialScreen)
-                    Console.WriteLine("| [ ] - Exit                              |");
+                    Console.WriteLine("| [" + mark + "] - Exit                            |");
                 else
-                    Console.WriteLine("| [ ] - Back                              |");
-
+                    Console.WriteLine("| [" + mark + "] - Back                            |");
+        
                 // Close Menu
                 Console.WriteLine("|                                       |");
                 Console.WriteLine("+---------------------------------------+");
 
                 // Get option
-                selectedOption = SelectOption(ref isOptionInvalid);
+                selectedOption = SelectOption();
 
             } while (selectedOption == null);
 
@@ -87,45 +89,36 @@ namespace HorseManager2022.UI
         
 
         // Verify option selected is available
-        public Option? SelectOption(ref bool isOptionInvalid)
+        public Option? SelectOption()
         {
-            int selectedOption = -1;
-
-            if (isOptionInvalid)
-                Console.WriteLine("Invalid option. Please, try again.\n");
+            // Read key
             Console.Write("Select an option: ");
+            ConsoleKeyInfo selectedOption = Console.ReadKey();
 
-            try
+            // Check for up / down / enter keys
+            switch (selectedOption.Key)
             {
-                selectedOption = Convert.ToInt32(Console.ReadLine());
-                
-                if (selectedOption < 0 || selectedOption > this.options.Count)
-                    throw new Exception();
-            }
-            catch
-            {
-                isOptionInvalid = true;
-                return null;
+                case ConsoleKey.UpArrow:
+                    if (this.selectedPosition > 0)
+                        this.selectedPosition--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (this.selectedPosition < this.options.Count)
+                        this.selectedPosition++;
+                    break;
+                case ConsoleKey.Enter:
+                    if (this.selectedPosition == this.options.Count) {
+                        return Option.GetBackOption();
+                    }
+                    else
+                        return this.options[this.selectedPosition];
+                default:
+                    break;
             }
             
-            return GetOption(selectedOption);
+            return null;
         }
-
         
-        public Option? GetOption(int selectedOption)
-        {
-            try
-            {
-                return this.options[selectedOption - 1];
-            }
-            catch
-            {
-                if (selectedOption == 0 && this.isInitialScreen)
-                    return Option.GetBackOption();
-                else
-                    return null;
-            }
-        }
 
     }
 }

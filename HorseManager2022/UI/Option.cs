@@ -8,9 +8,11 @@ namespace HorseManager2022.UI
 {
     internal class Option
     {
+        // Properties
         public string text { get; set; }
         public Action<ScreenMenu> onEnter { get; set; }
 
+        // Constructor
         public Option(string text, Action<ScreenMenu> onEnter)
         {
             this.text = text;

@@ -26,7 +26,26 @@ namespace HorseManager2022.UI
             // Return to previous screenMenu
             lastScreen.Show();
         }
-        
+
+        // Show New Game Screen
+        public static void ShowNewGameScreen(ScreenMenu nextScreen)
+        {
+            Console.Clear();
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|      Choose a save name       |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| No saves found! :(            |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadLine();
+
+            // Return to previous screenMenu
+            nextScreen.Show();
+        }
+
         // Show Credit Screen
         public static void ShowCreditScreen(ScreenMenu lastScreen)
         {
