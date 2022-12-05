@@ -2,19 +2,18 @@
 using HorseManager2022.UI;
 
 // Create UI
-Screen initialScreen = new Screen();
-initialScreen.AddOption(new Option("Login", () => { Canvas.ShowLoginScreen(); }));
-initialScreen.AddOption(new Option("Create account", () => { Console.WriteLine("Create account"); }));
-initialScreen.AddOption(new Option("Credits", () => { Console.WriteLine("Credits"); }));
-initialScreen.AddOption(new Option("Leave", () => { Console.WriteLine("Leave"); }));
+ScreenMenu initialScreen = new ScreenMenu("Welcome to Horse Manager 2022", true);
+initialScreen.AddOption(new Option("Login", (screen) => { UI.ShowLoginScreen(screen); }));
+initialScreen.AddOption(new Option("Register", (screen) => { UI.ShowRegisterScreen(screen); }));
+initialScreen.AddOption(new Option("Credits", (screen) => { UI.ShowCreditScreen(screen); }));
+
+Canvas canvas = new Canvas();
+canvas.AddScreen(initialScreen);
 
 
-// Program loop
-/*
-while (Game.isRunning)
-{
-    Canvas.ShowInitialScreen();
-    Game.isRunning = false;
-}
-*/
+// Show UI
+canvas.ShowInitialScreen();
+
+
+
 

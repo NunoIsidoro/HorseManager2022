@@ -6,52 +6,28 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    static class Canvas
+    internal class Canvas
     {
-        public static int option { get; set; }
-        
-        public static void ShowScreen()
+        public List<ScreenMenu> screens { get; set; }
+
+        public Canvas()
         {
-            
+            screens = new List<ScreenMenu>();
         }
 
-        // Show Initial Screen
-        public static void ShowInitialScreen(bool isOptionInvalid = false)
+        public void AddScreen(ScreenMenu screen)
         {
-            // Menu
-            Console.Clear();
-            Console.WriteLine("+---------------------------------------+");
-            Console.WriteLine("|     Welcome to Horse Manager 2022!    |");
-            Console.WriteLine("+---------------------------------------+");
-            Console.WriteLine("|                                       |");
-            Console.WriteLine("| 1- Login                              |");
-            Console.WriteLine("|                                       |");
-            Console.WriteLine("| 2- Create account                     |");
-            Console.WriteLine("|                                       |");
-            Console.WriteLine("| 3- Credits                            |");
-            Console.WriteLine("|                                       |");
-            Console.WriteLine("| 0- Leave                              |");
-            Console.WriteLine("|                                       |");
-            Console.WriteLine("+---------------------------------------+");
-
-            Utils.SelectOption(ShowInitialScreen, 3, isOptionInvalid);
+            screens.Add(screen);
         }
 
-        // Show Login Screen
-        public static void ShowLoginScreen()
+        public void ShowInitialScreen()
         {
-            // Menu
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|             Login             |");
-            Console.WriteLine("+-------------------------------+");
-
-            // Get data
-            Console.Write("Username: ");
-            string? username = Console.ReadLine();
-            Console.Write("Password: ");
-            string? password = Console.ReadLine();
-
+            ScreenMenu? initialScreen = screens.Find((screen) => screen.isInitialScreen);
+            if (initialScreen != null)
+                initialScreen.Show();
+            else
+                throw new Exception("No initial screen found");
         }
+
     }
 }
