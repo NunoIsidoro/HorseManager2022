@@ -12,14 +12,23 @@ namespace HorseManager2022.UI
         // Properties
         public string title { get; set; }
         public List<Option> options;
-        public bool isInitialScreen;
+        public ScreenMenu? previousScreen;
+        public int selectedPosition { get; set; }
 
+        public bool isInitialScreen
+        {
+            get
+            {
+                return this.previousScreen == null;
+            }
+        }
 
-        public ScreenMenu(string title, bool isInitialScreen = false)
+        public ScreenMenu(string title, ScreenMenu? previousScreen = null)
         {
             this.title = title;
             options = new List<Option>();
-            this.isInitialScreen = isInitialScreen;
+            this.previousScreen = previousScreen;
+            this.selectedPosition = 0;
         }
 
 
@@ -51,15 +60,17 @@ namespace HorseManager2022.UI
                 for (int i = 0; i < this.options.Count; i++)
                 {
                     string text = this.options[i].text.PadRight(34, ' ');
-                    Console.WriteLine("| " + (i + 1) + " - " + text + "|");
+                    // Console.WriteLine("| " + (i + 1) + " - " + text + "|");
+                    string mark = (i == this.selectedPosition) ? "X" : " ";
+                    Console.WriteLine("| [" + mark + "] - " + text + "|");
                     Console.WriteLine("|                                       |");
                 }
 
                 // Display Back / Exit Option
                 if (this.isInitialScreen)
-                    Console.WriteLine("| 0 - Exit                              |");
+                    Console.WriteLine("| [ ] - Exit                              |");
                 else
-                    Console.WriteLine("| 0 - Back                              |");
+                    Console.WriteLine("| [ ] - Back                              |");
 
                 // Close Menu
                 Console.WriteLine("|                                       |");
@@ -74,7 +85,7 @@ namespace HorseManager2022.UI
 
         }
         
-        
+
         // Verify option selected is available
         public Option? SelectOption(ref bool isOptionInvalid)
         {
@@ -110,16 +121,11 @@ namespace HorseManager2022.UI
             catch
             {
                 if (selectedOption == 0 && this.isInitialScreen)
-                    return Option.GetExitOption();
+                    return Option.GetBackOption();
                 else
                     return null;
-
-                /*
-                 
-                else if (selectedOption == 0)
-                    return null;
-                 */
             }
         }
+
     }
 }

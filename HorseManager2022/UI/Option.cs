@@ -16,15 +16,13 @@ namespace HorseManager2022.UI
             this.text = text;
             this.onEnter = onEnter;
         }
-        
-        static public Option GetExitOption()
-        {
-            return new Option("Exit", (_) => { Environment.Exit(0); });
-        }
 
-        static public Option GetBackOption(ScreenMenu lastScreen)
+        public static Option GetBackOption(bool isInitialScreen = false)
         {
-            return new Option("Back", (_) => { lastScreen.Show(); });
+            if (isInitialScreen)
+                return new Option("Exit", (_) => { Environment.Exit(0); });
+            else
+                return new Option("Back", (screen) => { screen.previousScreen?.Show(); });
         }
     }
 }

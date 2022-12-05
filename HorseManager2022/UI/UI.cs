@@ -8,6 +8,55 @@ namespace HorseManager2022.UI
 {
     static class UI
     {
+        // Show Load Game Screen
+        public static void ShowLoadGameScreen(ScreenMenu lastScreen)
+        {
+            Console.Clear();
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|             Saves             |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| No saves found! :(            |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadLine();
+
+            // Return to previous screenMenu
+            lastScreen.Show();
+        }
+        
+        // Show Credit Screen
+        public static void ShowCreditScreen(ScreenMenu lastScreen)
+        {
+            // Menu
+            Console.Clear();
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|       Game Developed by       |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| 20115 - André Cerqueira       |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| 20116 - Nuno Fernandes        |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| 25968 - Alexandre Marques     |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| 25977 - Miguel Sousa          |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("| 26531 - Gonçalo Gaspar        |");
+            Console.WriteLine("|                               |");
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadLine();
+
+            // Return to previous screenMenu
+            lastScreen.Show();
+        }
+
+
+        /*
         // Show Login Screen
         public static void ShowLoginScreen(ScreenMenu lastScreen)
         {
@@ -45,34 +94,7 @@ namespace HorseManager2022.UI
             // Return to previous screenMenu
             lastScreen.Show();
         }
-
-        // Show Credit Screen
-        public static void ShowCreditScreen(ScreenMenu lastScreen)
-        {
-            // Menu
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|       Game Developed by       |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| 20115 - André Cerqueira       |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| 20116 - Nuno Fernandes        |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| 25968 - Alexandre Marques     |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| 25977 - Miguel Sousa          |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| 26531 - Gonçalo Gaspar        |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine();
-            Console.WriteLine("Press any key to return to the menu...");
-            Console.ReadLine();
-
-            // Return to previous screenMenu
-            lastScreen.Show();
-        }
+        */
 
     }
 }
