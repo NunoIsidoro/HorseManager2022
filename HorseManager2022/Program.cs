@@ -5,7 +5,7 @@ using HorseManager2022.UI;
 // Create Screens
 ScreenMenu initialScreen = new ScreenMenu("Welcome to Horse Manager 2022");
 ScreenMenu loadGameScreen = new ScreenMenu("Load game", initialScreen);
-ScreenMenu mainGameScreen = new ScreenMenu("In Game Menu", initialScreen);
+ScreenCity mainGameScreen = new ScreenCity("In Game Menu", initialScreen);
 
 
 // ---------------- Initial Screen Options ---------------- \\

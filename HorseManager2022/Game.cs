@@ -24,8 +24,17 @@ namespace HorseManager2022
         {
             get
             {
-                // Get full path of all folders in rootPath
-                string[] paths = Directory.GetDirectories(rootPath, "*", SearchOption.TopDirectoryOnly);
+                string[] paths;
+                
+                try
+                {
+                    paths = Directory.GetDirectories(rootPath);
+                }
+                catch (Exception)
+                {
+                    Directory.CreateDirectory(rootPath);
+                    paths = Directory.GetDirectories(rootPath);
+                }
 
                 // Remove rootPath from paths
                 for (int i = 0; i < paths.Length; i++)

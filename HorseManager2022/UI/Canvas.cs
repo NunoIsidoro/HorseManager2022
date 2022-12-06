@@ -8,21 +8,21 @@ namespace HorseManager2022.UI
 {
     static class Canvas
     {
-        static public List<ScreenMenu> screens { get; set; }
+        static public List<Screen> screens { get; set; }
 
         static Canvas()
         {
-            screens = new List<ScreenMenu>();
+            screens = new List<Screen>();
         }
 
-        static public void AddScreen(ScreenMenu screen)
+        static public void AddScreen(Screen screen)
         {
             screens.Add(screen);
         }
 
         static public void ShowInitialScreen()
         {
-            ScreenMenu? initialScreen = screens.Find((screen) => screen.isInitialScreen);
+            Screen? initialScreen = screens.Find((screen) => screen.isInitialScreen);
             if (initialScreen != null)
                 initialScreen.Show();
             else
