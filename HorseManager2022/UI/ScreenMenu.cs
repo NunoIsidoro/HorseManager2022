@@ -31,12 +31,20 @@ namespace HorseManager2022.UI
             options = new List<Option>();
             this.previousScreen = previousScreen;
             this.selectedPosition = 0;
+            
+            Canvas.AddScreen(this);
         }
 
 
         public void AddOption(Option option)
         {
             options.Add(option);
+        }
+
+        
+        public void ClearOptions()
+        {
+            options.Clear();
         }
 
 
@@ -46,7 +54,7 @@ namespace HorseManager2022.UI
             Option? selectedOption = null;
             string title = this.title;
             string mark = "";
-            title = title.PadLeft((38 / 2) + (title.Length / 2)).PadRight(37);
+            title = title.PadLeft((37 / 2) + (title.Length / 2)).PadRight(37);
 
             // Wait for option
             do
@@ -95,23 +103,32 @@ namespace HorseManager2022.UI
             Console.Write("Select an option: ");
             ConsoleKeyInfo selectedOption = Console.ReadKey();
 
-            // Check for up / down / enter keys
+            // Check for up / down / enter / esc keys
             switch (selectedOption.Key)
             {
                 case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
                     if (this.selectedPosition > 0)
                         this.selectedPosition--;
+                    else
+                        this.selectedPosition = this.options.Count;
                     break;
                 case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
                     if (this.selectedPosition < this.options.Count)
                         this.selectedPosition++;
+                    else
+                        this.selectedPosition = 0;
                     break;
+                case ConsoleKey.RightArrow:
                 case ConsoleKey.Enter:
                     if (this.selectedPosition == this.options.Count) {
                         return Option.GetBackOption();
                     }
                     else
                         return this.options[this.selectedPosition];
+                case ConsoleKey.LeftArrow:
+                    return Option.GetBackOption();
                 default:
                     break;
             }
@@ -119,6 +136,5 @@ namespace HorseManager2022.UI
             return null;
         }
         
-
     }
 }

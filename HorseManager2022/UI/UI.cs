@@ -74,7 +74,24 @@ namespace HorseManager2022.UI
             lastScreen.Show();
         }
 
+        
+        // Show Create new save Screen
+        public static void ShowCreateNewSaveScreen(Action<string> onComplete)
+        {
+            // Menu
+            Console.Clear();
+            Console.WriteLine("+-------------------------------+");
+            Console.WriteLine("|     Create new save game      |");
+            Console.WriteLine("+-------------------------------+");
 
+            // Get data
+            Console.Write("Save name: ");
+            string savename = Console.ReadLine();
+
+            onComplete(savename);
+        }
+
+        
         /*
         // Show Login Screen
         public static void ShowLoginScreen(ScreenMenu lastScreen)

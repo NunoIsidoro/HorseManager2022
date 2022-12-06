@@ -19,7 +19,7 @@ namespace HorseManager2022.UI
             this.onEnter = onEnter;
         }
 
-        public static Option GetBackOption(bool isInitialScreen = false)
+        static public Option GetBackOption(bool isInitialScreen = false)
         {
             if (isInitialScreen)
                 return new Option("Exit", (_) => { Environment.Exit(0); });
