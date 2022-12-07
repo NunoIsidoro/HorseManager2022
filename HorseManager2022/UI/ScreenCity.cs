@@ -6,12 +6,49 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
+
+    public enum MenuMode
+    {
+        Up,
+        Down
+    }
+
     internal class ScreenCity : Screen
     {
+        // Properties
+        public MenuMode menuMode;
+        private Arrow arrow;
+        public Topbar topbar;
+        private City city;
+
+        public override int selectedPosition { 
+            get
+            {
+                return base.selectedPosition;
+            }
+            set
+            {
+
+                if (menuMode == MenuMode.Down && value > options.Count)
+                    value = options.Count;
+
+                if (menuMode == MenuMode.Up && value > topbar.options.Count)
+                    value = topbar.options.Count;
+
+                topbar.selectedPosition = value;
+                arrow.selectedPosition = value;
+                base.selectedPosition = value;
+            }
+        }
+
         // Constructor
         public ScreenCity(string title, Screen? previousScreen = null) 
             : base(title, previousScreen)
         {
+            arrow = new Arrow(22, -12, Topbar.TOPBAR_HEIGHT);
+            topbar = new Topbar(this);
+            city = new City();
+            menuMode = MenuMode.Down;
         }
 
         override public void Show()
@@ -21,52 +58,71 @@ namespace HorseManager2022.UI
             Option? selectedOption = WaitForOption(() =>
             {
                 Console.Clear();
-                Console.WriteLine("                                                                                                        ");
-                Console.WriteLine("                                                                                                        ");
-                Console.WriteLine("                                                                                                        ");
-                Console.WriteLine("                                                                                                        ");
-                Console.WriteLine("            			                                                                                      ");
-                Console.WriteLine("                           _||____                                                                      ");
-                Console.WriteLine("                           /- - - -\\                                                                     ");
-                Console.WriteLine("                         /_________\\                                                                    ");
-                Console.WriteLine("                         /|         |\\                                                                   ");
-                Console.WriteLine("                         |  []  [] |    8888                                                            ");
-                Console.WriteLine("       _||_____          |         |   888888      _||______            ____||_                         ");
-                Console.WriteLine("      /- - - - \\         |   LOJA  |  88888888    /- - - - -\\          /- - - -\\                        ");
-                Console.WriteLine("     /__________\\        |         |    || |     /___________\\        /_________\\                       ");
-                Console.WriteLine("    /| [] ____  |\\       |    ____ |    |  |    /| ____  []  |\\      /| [] ____ |\\                      ");
-                Console.WriteLine("     |    |. |  |        |    |. | |    | ||     | |. |      |        |    |. | |                       ");
-                Console.WriteLine("_____|____|__|__|________|____|__|_|____|__|_____|_|__|______|________|____|__|_|___                    ");
-                Console.WriteLine("                                                                                                        ");
-                Console.WriteLine("      _||______            _____          _________                                                     ");
-                Console.WriteLine("_____/-|| - - -\\__________/- - -\\________/- - - - -\\__________________________________                  ");
-                Console.WriteLine("    /___________\\ -      /_______\\      /___________\\               ____                                ");
-                Console.WriteLine("   /|           |\\      /|       |\\ -  /|           |\\  -    ____.-\"    \\___    -                       ");
-                Console.WriteLine("    |           |        |       |      |           |    ___/              (_____   |    -        -     ");
-                Console.WriteLine("    |___________|    -   |_______|   -  |___________|   (                        \"-.!||                 ");
-                Console.WriteLine("                                                         \\       ~~          ~     ( !!|||  -  -    -   ");
-                Console.WriteLine("  -         -                                     -    - :                         \"-.!!! |             ");
-                Console.WriteLine("       -                -          -                      /               ~~            \\___!        -  ");
-                Console.WriteLine("                                            -        ____)      ~                          \"-           ");
-                Console.WriteLine("      -        -     -                              (     ~~                   ~~            \"-.  -     ");
-                Console.WriteLine("                             -                       \\   ~         ~~                      __.-\"        ");
-                Console.WriteLine("           -           -                 -            \\_____                    ~~      .-\"             ");
-                Console.WriteLine("   -           -               -                            \"-.    ~                   \\        -       ");
-                Console.WriteLine("                                                               \"-.______  ~        _____)     -         ");
-                Console.WriteLine("                                                                        ´-.____.-´                      ");
-                Console.WriteLine();
 
-                // Draw arrow
-                Arrow arrow = new Arrow(0, 10);
+                topbar.Draw();
+                city.Draw();
 
-                arrow.Draw();
+                if (menuMode == MenuMode.Down)
+                    arrow.Draw();
 
-
-                Console.ReadLine();
             });
             
-            this.previousScreen?.Show();
+            selectedOption.onEnter(this);
+            
         }
-        
+
+
+        // Verify option selected is available
+        override public Option? SelectOption()
+        {
+            // Read key
+            ConsoleKeyInfo selectedOption = Console.ReadKey();
+
+            // Check for up / down / enter / esc keys
+            switch (selectedOption.Key)
+            {
+                case ConsoleKey.LeftArrow:
+
+                    if (this.selectedPosition > 0)
+                        this.selectedPosition--;
+                    else
+                        this.selectedPosition = this.options.Count - 1;
+                    break;
+
+                case ConsoleKey.RightArrow:
+
+                    if (menuMode == MenuMode.Down && this.selectedPosition < this.options.Count - 1)
+                        this.selectedPosition++;
+                    else
+                    {
+                        if (menuMode == MenuMode.Up && this.selectedPosition < this.topbar.options.Count)
+                            this.selectedPosition++;
+                        else
+                            this.selectedPosition = 0;
+                    }
+                    break;
+
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.DownArrow:
+                    menuMode = (menuMode == MenuMode.Up) ? MenuMode.Down : MenuMode.Up;
+                    this.selectedPosition = 0;
+                    break;
+
+                case ConsoleKey.Enter:
+
+                    if (this.selectedPosition == this.options.Count)
+                    {
+                        return Option.GetBackOption();
+                    }
+                    else
+                        return this.options[this.selectedPosition];
+
+                default:
+                    break;
+            }
+
+            return null;
+        }
+
     }
 }

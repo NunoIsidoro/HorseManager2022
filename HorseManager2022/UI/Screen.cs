@@ -12,7 +12,7 @@ namespace HorseManager2022.UI
         public string title { get; set; }
         public List<Option> options;
         public Screen? previousScreen;
-        public int selectedPosition { get; set; }
+        virtual public int selectedPosition { get; set; }
 
         public bool isInitialScreen
         {
@@ -28,7 +28,6 @@ namespace HorseManager2022.UI
             this.title = title;
             options = new List<Option>();
             this.previousScreen = previousScreen;
-            this.selectedPosition = 0;
 
             Canvas.AddScreen(this);
         }
@@ -61,7 +60,7 @@ namespace HorseManager2022.UI
                 
                 // Get option
                 selectedOption = SelectOption();
-                
+
             } while (selectedOption == null);
 
             return selectedOption;
@@ -72,7 +71,7 @@ namespace HorseManager2022.UI
         virtual public Option? SelectOption()
         {
             // Read key
-            Console.Write("Select an option: ");
+            // Console.Write("Select an option: ");
             ConsoleKeyInfo selectedOption = Console.ReadKey();
 
             // Check for up / down / enter / esc keys

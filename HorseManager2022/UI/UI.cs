@@ -9,7 +9,7 @@ namespace HorseManager2022.UI
     static class UI
     {
         // Show Load Game Screen
-        public static void ShowLoadGameScreen(ScreenMenu lastScreen)
+        public static void ShowLoadGameScreen(Screen lastScreen)
         {
             Console.Clear();
             Console.WriteLine("+-------------------------------+");
@@ -28,7 +28,7 @@ namespace HorseManager2022.UI
         }
 
         // Show New Game Screen
-        public static void ShowNewGameScreen(ScreenMenu nextScreen)
+        public static void ShowNewGameScreen(Screen nextScreen)
         {
             Console.Clear();
             Console.WriteLine("+-------------------------------+");
@@ -47,7 +47,7 @@ namespace HorseManager2022.UI
         }
 
         // Show Credit Screen
-        public static void ShowCreditScreen(ScreenMenu lastScreen)
+        public static void ShowCreditScreen(Screen lastScreen)
         {
             // Menu
             Console.Clear();

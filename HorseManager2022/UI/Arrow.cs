@@ -8,22 +8,24 @@ namespace HorseManager2022.UI
 {
     class Arrow
     {
-        public int x { get; set; }
-        public int y { get; set; }
+        public int offsetX { get; set; }
+        public int offsetY { get; set; }
         public int selectedPosition { get; set; }
         public int margin { get; set; }
 
-        public Arrow(int y, int margin)
+        public Arrow(int margin, int offsetX = 0, int offsetY = 0)
         {
-            this.x = 0;
-            this.y = y;
             this.margin = margin;
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
             this.selectedPosition = 0;
         }
 
         public void Draw()
         {
-            this.x = (selectedPosition+1) * margin;
+            int x = ((selectedPosition + 1) * margin) + offsetX;
+            int y = offsetY;
+            
             Console.SetCursorPosition(x, y);
             Console.Write("__");
             Console.SetCursorPosition(x, y + 1);
@@ -38,7 +40,7 @@ namespace HorseManager2022.UI
             Console.Write("\\  /");
             Console.SetCursorPosition(x, y + 6);
             Console.Write("\\/");
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(x, y);
         }
 
 
