@@ -110,12 +110,26 @@ namespace HorseManager2022.UI
 
                 case ConsoleKey.Enter:
 
-                    if (this.selectedPosition == this.options.Count)
+                    if (menuMode == MenuMode.Down)
                     {
-                        return Option.GetBackOption();
+                        if (this.selectedPosition == this.options.Count)
+                        {
+                            return Option.GetBackOption();
+                        }
+                        else
+                            return this.options[this.selectedPosition];
                     }
-                    else
-                        return this.options[this.selectedPosition];
+                    else 
+                    {
+
+                        if (this.selectedPosition == this.topbar.options.Count)
+                        {
+                            return Option.GetBackOption();
+                        }
+                        else
+                            return this.topbar.options[this.selectedPosition];
+
+                    }
 
                 default:
                     break;

@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    internal class Screen
+    internal class Screen : ISelectable
     {
         // Properties
-        public string title { get; set; }
-        public List<Option> options;
-        public Screen? previousScreen;
-        virtual public int selectedPosition { get; set; }
-
+        public string title;
+        public List<Option> options { get; set; }
+        public Screen? previousScreen { get; set; }
+        public virtual int selectedPosition { get; set; }
+        
         public bool isInitialScreen
         {
             get
             {
-                return this.previousScreen == null;
+                return previousScreen == null;
             }
         }
-        
+
+
         // Constructor
         public Screen(string title, Screen? previousScreen = null)
         {
