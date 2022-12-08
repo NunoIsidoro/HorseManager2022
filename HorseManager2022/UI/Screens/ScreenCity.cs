@@ -6,13 +6,62 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    internal class City
+    internal class ScreenCity : ScreenWithTopbar
     {
-        public City()
-        {
+        // Properties
+        private Arrow arrow;
+
+        public override int selectedPosition { 
+            get
+            {
+                return base.selectedPosition;
+            }
+            set
+            {
+                if (menuMode == MenuMode.Down && value > options.Count)
+                    value = options.Count;
+
+                if (menuMode == MenuMode.Up && value > topbar.options.Count)
+                    value = topbar.options.Count;
+
+                topbar.selectedPosition = value;
+                arrow.selectedPosition = value;
+                base.selectedPosition = value;
+            }
         }
 
-        public void Draw()
+
+        // Constructor
+        public ScreenCity(string title, Topbar topbar, Screen? previousScreen = null)
+            : base(title, topbar, previousScreen)
+        {
+            arrow = new Arrow(22, -12, Topbar.TOPBAR_HEIGHT);
+            menuMode = MenuMode.Down;
+        }
+        
+
+        override public void Show()
+        {
+
+            // Wait for option
+            Option? selectedOption = WaitForOption(() =>
+            {
+                Console.Clear();
+
+                topbar.Draw(this);
+                DrawCity();
+
+                if (menuMode == MenuMode.Down)
+                    arrow.Draw();
+
+            });
+            
+            selectedOption.onEnter(this);
+            
+        }
+        
+        
+        public void DrawCity()
         {
             Console.WriteLine("                                                                                                         ");
             Console.WriteLine("                                                                                                         ");
@@ -49,6 +98,6 @@ namespace HorseManager2022.UI
             Console.WriteLine("                                                               \"-.______  ~        _____)     -         ");
             Console.WriteLine("                                                                        ´-.____.-´                       ");
         }
-        
+
     }
 }

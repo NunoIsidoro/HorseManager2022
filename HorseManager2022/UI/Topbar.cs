@@ -9,15 +9,13 @@ namespace HorseManager2022.UI
     internal class Topbar
     {
         // Properties
-        public ScreenCity originScreen;
         public List<Option> options;
         public const int TOPBAR_HEIGHT = 7;
         public int selectedPosition;
 
         // Constructor
-        public Topbar(ScreenCity originScreen) 
+        public Topbar() 
         {
-            this.originScreen = originScreen;
             this.options = new List<Option>();
         }
         
@@ -28,7 +26,7 @@ namespace HorseManager2022.UI
         }
 
         
-        public void Draw()
+        public void Draw(ScreenWithTopbar screen)
         {
             // ---------------- 1º Line ---------------- \\
             Console.Write("*------------------");
@@ -44,7 +42,7 @@ namespace HorseManager2022.UI
             Console.Write("|  Username        ");
             for (int i = 0; i < options.Count + 1; i++)
             {
-                if (i == selectedPosition && originScreen.menuMode == MenuMode.Up)
+                if (i == selectedPosition && screen.menuMode == MenuMode.Up)
                     Console.Write("|     [X]     |   ");
                 else
                     Console.Write("|     [ ]     |   ");

@@ -6,22 +6,14 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-
-    public enum MenuMode
-    {
-        Up,
-        Down
-    }
-
-    internal class ScreenCity : Screen
+    internal class ScreenWithTopbar : Screen
     {
         // Properties
         public MenuMode menuMode;
-        private Arrow arrow;
         public Topbar topbar;
-        private City city;
 
-        public override int selectedPosition { 
+        public override int selectedPosition
+        {
             get
             {
                 return base.selectedPosition;
@@ -36,39 +28,17 @@ namespace HorseManager2022.UI
                     value = topbar.options.Count;
 
                 topbar.selectedPosition = value;
-                arrow.selectedPosition = value;
                 base.selectedPosition = value;
             }
         }
 
+        
         // Constructor
-        public ScreenCity(string title, Screen? previousScreen = null) 
+        public ScreenWithTopbar(string title, Topbar topbar, Screen? previousScreen = null)
             : base(title, previousScreen)
         {
-            arrow = new Arrow(22, -12, Topbar.TOPBAR_HEIGHT);
-            topbar = new Topbar(this);
-            city = new City();
+            this.topbar = topbar;
             menuMode = MenuMode.Down;
-        }
-
-        override public void Show()
-        {
-
-            // Wait for option
-            Option? selectedOption = WaitForOption(() =>
-            {
-                Console.Clear();
-
-                topbar.Draw();
-                city.Draw();
-
-                if (menuMode == MenuMode.Down)
-                    arrow.Draw();
-
-            });
-            
-            selectedOption.onEnter(this);
-            
         }
 
 
@@ -119,7 +89,7 @@ namespace HorseManager2022.UI
                         else
                             return this.options[this.selectedPosition];
                     }
-                    else 
+                    else
                     {
 
                         if (this.selectedPosition == this.topbar.options.Count)
@@ -137,6 +107,5 @@ namespace HorseManager2022.UI
 
             return null;
         }
-
     }
 }

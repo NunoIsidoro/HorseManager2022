@@ -42,42 +42,6 @@ namespace HorseManager2022.UI
             Console.Write("\\/");
             Console.SetCursorPosition(x, y);
         }
-
-
-        /*
-        public void Erase()
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write("  ");
-            Console.SetCursorPosition(x, y + 1);
-            Console.Write("  ");
-            Console.SetCursorPosition(x, y + 2);
-            Console.Write("  ");
-            Console.SetCursorPosition(x - 2, y + 3);
-            Console.Write("      ");
-            Console.SetCursorPosition(x - 2, y + 4);
-            Console.Write("       ");
-            Console.SetCursorPosition(x - 1, y + 5);
-            Console.Write("     ");
-            Console.SetCursorPosition(x, y + 6);
-            Console.Write("   ");
-            Console.SetCursorPosition(0, 0);
-        }
-        public void MoveLeft()
-        {
-            if (x > 0)
-            {
-                Erase();
-                x--;
-                Draw();
-            }
-        }
-
-        public void MoveRight()
-        {
-            Erase();
-            x++;
-            Draw();
-        }*/
+        
     }
 }

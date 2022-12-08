@@ -3,9 +3,14 @@ using HorseManager2022.UI;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 // Create Screens
+Topbar topbar = new Topbar();
 ScreenMenu initialScreen = new ScreenMenu("Welcome to Horse Manager 2022");
 ScreenMenu loadGameScreen = new ScreenMenu("Load game", initialScreen);
-ScreenCity cityGameScreen = new ScreenCity("City", initialScreen);
+ScreenCity cityScreen = new ScreenCity("City", topbar, loadGameScreen);
+ScreenHouse vetScreen = new ScreenHouse("Vet", topbar, cityScreen);
+ScreenHouse shopScreen = new ScreenHouse("Shop", topbar, cityScreen);
+ScreenHouse stableScreen = new ScreenHouse("Stable", topbar, cityScreen);
+ScreenHouse raceTrackScreen = new ScreenHouse("RaceTrack", topbar, cityScreen);
 
 
 // ---------------- Initial Screen Options ---------------- \\
@@ -23,8 +28,8 @@ initialScreen.AddOption(new Option("Load game", (lastScreen) => {
         {
 
             // Start game
-            cityGameScreen.title = "In Game Menu - " + save;
-            cityGameScreen.Show();
+            cityScreen.title = "In Game Menu - " + save;
+            cityScreen.Show();
 
 
         }));
@@ -47,8 +52,8 @@ initialScreen.AddOption(new Option("New game", (lastScreen) => {
         game.CreateSave();
 
         // Start game
-        cityGameScreen.title = "In Game Menu - " + savename;
-        cityGameScreen.Show();
+        cityScreen.title = "In Game Menu - " + savename;
+        cityScreen.Show();
 
     });
     
@@ -63,11 +68,164 @@ initialScreen.AddOption(new Option("Credits", (lastScreen) => { UI.ShowCreditScr
 
 
 /*
-    City [Topbar] --> Calendar [Option]
+    City [Screen] --> Vet [Option]
 */
-cityGameScreen.topbar.AddOption(new Option("Calendar", (lastScreen) => { 
+cityScreen.AddOption(new Option("Vet", (lastScreen) => {
 
+    vetScreen.Show();
+
+}));
+
+/*
+    Vet [Screen] --> Details [Option]
+*/
+
+vetScreen.AddOption(new Option("Details", (lastScreen) => { 
     
+    Console.WriteLine("Details");
+    Console.ReadKey();
+    lastScreen.Show();
+    
+}));
+
+/*
+    Vet [Screen] --> Upgrade [Option]
+*/
+
+vetScreen.AddOption(new Option("Upgrade", (lastScreen) => { 
+    
+    Console.WriteLine("Upgrade");
+    Console.ReadKey();
+
+    lastScreen.Show();
+}));
+
+/*
+    City [Screen] --> Shop [Option]
+*/
+cityScreen.AddOption(new Option("Shop", (lastScreen) => {
+
+    shopScreen.Show();
+
+}));
+
+/*
+    Shop [Screen] --> Buy [Option]
+*/
+
+shopScreen.AddOption(new Option("Buy", (lastScreen) => {
+
+    Console.WriteLine("Buy");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    Shop [Screen] --> Sell [Option]
+*/
+
+shopScreen.AddOption(new Option("Sell", (lastScreen) => {
+
+    Console.WriteLine("Sell");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    City [Screen] --> Stable [Option]
+*/
+cityScreen.AddOption(new Option("Stable", (lastScreen) => {
+
+    stableScreen.Show();
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    Stable [Screen] --> Horses [Option]
+*/
+
+stableScreen.AddOption(new Option("Horses", (lastScreen) => {
+
+    Console.WriteLine("Horses");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    Stable [Screen] --> Jockeys [Option]
+*/
+
+stableScreen.AddOption(new Option("Jockeys", (lastScreen) => {
+
+    Console.WriteLine("Jockeys");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    City [Screen] --> Racetrack [Option]
+*/
+cityScreen.AddOption(new Option("Racetrack", (lastScreen) => {
+
+
+    raceTrackScreen.Show();
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    Racetrack [Screen] --> Train [Option]
+*/
+
+raceTrackScreen.AddOption(new Option("Train", (lastScreen) => {
+
+    Console.WriteLine("Train");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+/*
+    Racetrack [Screen] --> Race [Option]
+*/
+
+raceTrackScreen.AddOption(new Option("Race", (lastScreen) => {
+
+    Console.WriteLine("Race");
+
+    Console.ReadKey();
+
+    lastScreen.Show();
+
+}));
+
+
+/*
+    [Topbar] --> Calendar [Option]
+*/
+topbar.AddOption(new Option("Calendar", (lastScreen) => {
+
     Console.WriteLine("Calendar");
 
     Console.ReadKey(); // Esperar tecla
@@ -78,62 +236,17 @@ cityGameScreen.topbar.AddOption(new Option("Calendar", (lastScreen) => {
 
 
 /*
-    City [Topbar] --> Sleep [Option]
+    [Topbar] --> Sleep [Option]
 */
-cityGameScreen.topbar.AddOption(new Option("Sleep", (lastScreen) => { 
-    
+topbar.AddOption(new Option("Sleep", (lastScreen) => {
+
     Console.WriteLine("Sleep");
 
     Console.ReadKey();
 
-}));
-
-
-/*
-    City [Screen] --> Vet [Option]
-*/
-cityGameScreen.AddOption(new Option("Vet", (lastScreen) => { 
-    
-    Console.WriteLine("Vet");
-
-    Console.ReadKey();
+    lastScreen.Show();
 
 }));
-
-/*
-    City [Screen] --> Shop [Option]
-*/
-cityGameScreen.AddOption(new Option("Shop", (lastScreen) => { 
-    
-    Console.WriteLine("Shop");
-
-    Console.ReadKey();
-
-}));
-
-/*
-    City [Screen] --> Stable [Option]
-*/
-cityGameScreen.AddOption(new Option("Stable", (lastScreen) => { 
-    
-    Console.WriteLine("Stable");
-
-    Console.ReadKey();
-
-}));
-
-/*
-    City [Screen] --> Racetrack [Option]
-*/
-cityGameScreen.AddOption(new Option("Racetrack", (lastScreen) => { 
-    
-    
-    Console.WriteLine("Racetrack");
-
-    Console.ReadKey();
-
-}));
-
 
 // ---------------- Game Start ---------------- \\
 Canvas.ShowInitialScreen();
