@@ -32,9 +32,9 @@ namespace HorseManager2022.UI
         }
 
 
-        public void AddOption(Option option)
+        public void AddOption(string text, Screen? nextScreen, Action onEnter)
         {
-            options.Add(option);
+            options.Add(new Option(text, nextScreen, onEnter));
         }
 
 
@@ -44,8 +44,9 @@ namespace HorseManager2022.UI
         }
         
 
-        virtual public void Show()
-        { 
+        virtual public Screen? Show()
+        {
+            return null;
         }
         
         
@@ -94,12 +95,12 @@ namespace HorseManager2022.UI
                 case ConsoleKey.Enter:
                     if (this.selectedPosition == this.options.Count)
                     {
-                        return Option.GetBackOption();
+                        return Option.GetBackOption(this.previousScreen);
                     }
                     else
                         return this.options[this.selectedPosition];
                 case ConsoleKey.LeftArrow:
-                    return Option.GetBackOption();
+                    return Option.GetBackOption(this.previousScreen);
                 default:
                     break;
             }

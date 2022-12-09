@@ -18,14 +18,14 @@ namespace HorseManager2022.UI
         {
             this.options = new List<Option>();
         }
-        
-        
-        public void AddOption(Option option)
+
+
+        public void AddOption(string text, Screen? nextScreen, Action onEnter)
         {
-            options.Add(option);
+            options.Add(new Option(text, nextScreen, onEnter));
         }
 
-        
+
         public void Draw(ScreenWithTopbar screen)
         {
             // ---------------- 1º Line ---------------- \\

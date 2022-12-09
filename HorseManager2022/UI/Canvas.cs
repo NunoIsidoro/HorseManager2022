@@ -20,11 +20,11 @@ namespace HorseManager2022.UI
             screens.Add(screen);
         }
 
-        public void ShowInitialScreen()
+        public Screen ShowInitialScreen()
         {
             Screen? initialScreen = screens.Find((screen) => screen.isInitialScreen);
             if (initialScreen != null)
-                initialScreen.Show();
+                return initialScreen.Show();
             else
                 throw new Exception("No initial screen found");
         }

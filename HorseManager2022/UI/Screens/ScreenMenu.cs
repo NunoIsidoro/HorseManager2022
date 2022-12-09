@@ -20,7 +20,7 @@ namespace HorseManager2022.UI
         }
 
 
-        override public void Show()
+        override public Screen? Show()
         {
             // Variables
             string title = this.title;
@@ -59,7 +59,8 @@ namespace HorseManager2022.UI
 
             });
             
-            selectedOption.onEnter(this);
+            selectedOption.onEnter();
+            return selectedOption.nextScreen;
 
         }
         

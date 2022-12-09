@@ -18,7 +18,7 @@ namespace HorseManager2022.UI
             boardMenu = new BoardMenu("Board Menu", this, previousScreen);
         }
 
-        override public void Show()
+        override public Screen? Show()
         {
             // Wait for option
             Option? selectedOption = WaitForOption(() =>
@@ -32,7 +32,8 @@ namespace HorseManager2022.UI
 
             });
 
-            selectedOption.onEnter(this);
+            selectedOption.onEnter();
+            return selectedOption.nextScreen;
 
         }
 

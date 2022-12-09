@@ -19,239 +19,224 @@ canvas.screens.AddRange(new Screen[] { initialScreen, loadGameScreen, cityScreen
 /*
     Initial [Screen] --> Load game [Option]
 */
-initialScreen.AddOption(new Option("Load game", (lastScreen) => {
-
+initialScreen.AddOption("Load game", loadGameScreen, () => {
 
     loadGameScreen.ClearOptions();
     foreach (string save in Game.saves)
     {
-        loadGameScreen.AddOption(new Option(save, (lastScreen) =>
+        loadGameScreen.AddOption(save, cityScreen, () =>
         {
 
             // Start game
             Game game = new Game(canvas, save);
             cityScreen.title = "City";
-            cityScreen.Show();
 
-
-        }));
+        });
     }
 
-    loadGameScreen.Show();
-
-}));
+});
 
 
 /*
     Initial [Screen] --> New game [Option]
 */
-initialScreen.AddOption(new Option("New game", (lastScreen) => { 
+initialScreen.AddOption("New game", loadGameScreen, () => { 
 
     
     UI.ShowCreateNewSaveScreen((savename) => {
 
         Game game = new Game(canvas, savename, true);
-
-        // Start game
         cityScreen.title = "In Game Menu - " + savename;
-        cityScreen.Show();
 
     });
     
 
-}));
+});
 
 
 /*
     Initial [Screen] --> Credits [Option]
 */
-initialScreen.AddOption(new Option("Credits", (lastScreen) => { UI.ShowCreditScreen(lastScreen); }));
+initialScreen.AddOption("Credits", initialScreen, () => { UI.ShowCreditScreen(); });
 
 
 /*
     City [Screen] --> Vet [Option]
 */
-cityScreen.AddOption(new Option("Vet", (lastScreen) => {
+cityScreen.AddOption("Vet", vetScreen, () => {
 
-    vetScreen.Show();
+    // vetScreen.Show();
+    Console.WriteLine("Vet");
+    Console.ReadKey();
 
-}));
+});
 
 /*
     Vet [Screen] --> Details [Option]
 */
 
-vetScreen.AddOption(new Option("Details", (lastScreen) => { 
+vetScreen.AddOption("Details", vetScreen, () => { 
     
     Console.WriteLine("Details");
     Console.ReadKey();
-    lastScreen.Show();
-    
-}));
+
+});
 
 /*
     Vet [Screen] --> Upgrade [Option]
 */
 
-vetScreen.AddOption(new Option("Upgrade", (lastScreen) => { 
+vetScreen.AddOption("Upgrade", vetScreen, () => { 
     
     Console.WriteLine("Upgrade");
     Console.ReadKey();
-
-    lastScreen.Show();
-}));
+    
+});
 
 /*
     City [Screen] --> Shop [Option]
 */
-cityScreen.AddOption(new Option("Shop", (lastScreen) => {
+cityScreen.AddOption("Shop", shopScreen, () => {
 
-    shopScreen.Show();
+    // shopScreen.Show();
 
-}));
+});
 
 /*
     Shop [Screen] --> Buy [Option]
 */
 
-shopScreen.AddOption(new Option("Buy", (lastScreen) => {
+shopScreen.AddOption("Buy", shopScreen, () => {
 
     Console.WriteLine("Buy");
 
     Console.ReadKey();
+    
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     Shop [Screen] --> Sell [Option]
 */
 
-shopScreen.AddOption(new Option("Sell", (lastScreen) => {
+shopScreen.AddOption("Sell", shopScreen, () => {
 
     Console.WriteLine("Sell");
 
     Console.ReadKey();
+    
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     City [Screen] --> Stable [Option]
 */
-cityScreen.AddOption(new Option("Stable", (lastScreen) => {
+cityScreen.AddOption("Stable", stableScreen, () => {
 
-    stableScreen.Show();
+    // stableScreen.Show();
 
     Console.ReadKey();
+    
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     Stable [Screen] --> Horses [Option]
 */
 
-stableScreen.AddOption(new Option("Horses", (lastScreen) => {
+stableScreen.AddOption("Horses", stableScreen, () => {
 
     Console.WriteLine("Horses");
 
     Console.ReadKey();
+    
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     Stable [Screen] --> Jockeys [Option]
 */
 
-stableScreen.AddOption(new Option("Jockeys", (lastScreen) => {
+stableScreen.AddOption("Jockeys", stableScreen, () => {
 
     Console.WriteLine("Jockeys");
 
     Console.ReadKey();
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     City [Screen] --> Racetrack [Option]
 */
-cityScreen.AddOption(new Option("Racetrack", (lastScreen) => {
+cityScreen.AddOption("Racetrack", raceTrackScreen, () => {
 
 
-    raceTrackScreen.Show();
-
+    Console.WriteLine("Racetrack");
     Console.ReadKey();
+    
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     Racetrack [Screen] --> Train [Option]
 */
 
-raceTrackScreen.AddOption(new Option("Train", (lastScreen) => {
+raceTrackScreen.AddOption("Train", raceTrackScreen, () => {
 
     Console.WriteLine("Train");
 
     Console.ReadKey();
 
-    lastScreen.Show();
-
-}));
+});
 
 /*
     Racetrack [Screen] --> Race [Option]
 */
 
-raceTrackScreen.AddOption(new Option("Race", (lastScreen) => {
+raceTrackScreen.AddOption("Race", raceTrackScreen, () => {
 
     Console.WriteLine("Race");
 
     Console.ReadKey();
 
-    lastScreen.Show();
-
-}));
+});
 
 
 /*
     [Topbar] --> Calendar [Option]
 */
-topbar.AddOption(new Option("Calendar", (lastScreen) => {
+topbar.AddOption("Calendar", cityScreen, () => {
 
     Console.WriteLine("Calendar");
 
     Console.ReadKey(); // Esperar tecla
 
-    lastScreen.Show(); // No final chamar o Show() do último Screen para voltar para o anterior e ficar no ciclo
-
-}));
+});
 
 
 /*
     [Topbar] --> Sleep [Option]
 */
-topbar.AddOption(new Option("Sleep", (lastScreen) => {
+topbar.AddOption("Sleep", cityScreen, () => {
 
     Console.WriteLine("Sleep");
 
     Console.ReadKey();
 
-    lastScreen.Show();
-
-}));
-
-// ---------------- Game Start ---------------- \\
-canvas.ShowInitialScreen();
+});
 
 
+// ---------------- Game Loop ---------------- \\
+Screen? activeScreen, nextScreen;
+activeScreen = canvas.ShowInitialScreen();
 
 
+while (activeScreen != null)
+{
+    nextScreen = activeScreen.Show();
+    activeScreen = nextScreen;
+}
+
+
+Console.Clear();
+Console.WriteLine("Thanks for playing!");

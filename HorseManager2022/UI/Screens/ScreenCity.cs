@@ -40,7 +40,7 @@ namespace HorseManager2022.UI
         }
         
 
-        override public void Show()
+        override public Screen? Show()
         {
 
             // Wait for option
@@ -56,8 +56,9 @@ namespace HorseManager2022.UI
 
             });
             
-            selectedOption.onEnter(this);
-            
+            selectedOption.onEnter();
+            return selectedOption.nextScreen;
+
         }
         
         

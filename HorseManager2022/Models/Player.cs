@@ -14,10 +14,10 @@ namespace HorseManager2022.Models
         public Date date;
 
         // Inventory
-        public List<Horse> horses;
-        public List<Jockey> jockeys;
-        public List<HorseJockey> horseJockeys;
-        public List<Event> events;
+        // public List<Horse> horses;
+        // public List<Jockey> jockeys;
+        // public List<HorseJockey> horseJockeys;
+        // public List<Event> events;
 
         // Constructor
         public Player(string name, int money, Date date)
@@ -26,10 +26,10 @@ namespace HorseManager2022.Models
             this.money = money;
             this.date = date;
 
-            this.horses = new List<Horse>();
-            this.jockeys = new List<Jockey>();
-            this.horseJockeys = new List<HorseJockey>();
-            this.events = new List<Event>();
+            // this.horses = new List<Horse>();
+            // this.jockeys = new List<Jockey>();
+            // this.horseJockeys = new List<HorseJockey>();
+            // this.events = new List<Event>();
         }
 
         // Constructor for starting player
@@ -39,10 +39,10 @@ namespace HorseManager2022.Models
             this.money = 10;
             this.date = new Date();
 
-            this.horses = new List<Horse>();
-            this.jockeys = new List<Jockey>();
-            this.horseJockeys = new List<HorseJockey>();
-            this.events = new List<Event>();
+            // this.horses = new List<Horse>();
+            // this.jockeys = new List<Jockey>();
+            // this.horseJockeys = new List<HorseJockey>();
+            // this.events = new List<Event>();
         }
 
     }

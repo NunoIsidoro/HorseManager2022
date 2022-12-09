@@ -22,7 +22,7 @@ namespace HorseManager2022.UI
         }
 
         // Methods
-        public void AddOption(Option option);
+        public void AddOption(string text, Screen? nextScreen, Action onEnter);
         public void ClearOptions();
         public Option WaitForOption(Action onWait);
         public Option? SelectOption();

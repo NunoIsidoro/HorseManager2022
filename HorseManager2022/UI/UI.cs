@@ -47,7 +47,7 @@ namespace HorseManager2022.UI
         }
 
         // Show Credit Screen
-        public static void ShowCreditScreen(Screen lastScreen)
+        public static void ShowCreditScreen()
         {
             // Menu
             Console.Clear();
@@ -69,9 +69,6 @@ namespace HorseManager2022.UI
             Console.WriteLine();
             Console.WriteLine("Press any key to return to the menu...");
             Console.ReadLine();
-
-            // Return to previous screenMenu
-            lastScreen.Show();
         }
 
         

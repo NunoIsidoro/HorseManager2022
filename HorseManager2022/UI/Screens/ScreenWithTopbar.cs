@@ -84,7 +84,7 @@ namespace HorseManager2022.UI
                     {
                         if (this.selectedPosition == this.options.Count)
                         {
-                            return Option.GetBackOption();
+                            return Option.GetBackOption(this.previousScreen);
                         }
                         else
                             return this.options[this.selectedPosition];
@@ -94,7 +94,7 @@ namespace HorseManager2022.UI
 
                         if (this.selectedPosition == this.topbar.options.Count)
                         {
-                            return Option.GetBackOption();
+                            return Option.GetBackOption(this.previousScreen);
                         }
                         else
                             return this.topbar.options[this.selectedPosition];
