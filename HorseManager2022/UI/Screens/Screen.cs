@@ -29,8 +29,6 @@ namespace HorseManager2022.UI
             this.title = title;
             options = new List<Option>();
             this.previousScreen = previousScreen;
-
-            Canvas.AddScreen(this);
         }
 
 

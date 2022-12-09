@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    class Arrow
+    internal class Arrow
     {
         public int offsetX { get; set; }
         public int offsetY { get; set; }

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    static class Canvas
+    internal class Canvas
     {
-        static public List<Screen> screens { get; set; }
+        public List<Screen> screens { get; set; }
 
-        static Canvas()
+        public Canvas()
         {
             screens = new List<Screen>();
         }
 
-        static public void AddScreen(Screen screen)
+        public void AddScreen(Screen screen)
         {
             screens.Add(screen);
         }
 
-        static public void ShowInitialScreen()
+        public void ShowInitialScreen()
         {
             Screen? initialScreen = screens.Find((screen) => screen.isInitialScreen);
             if (initialScreen != null)

@@ -10,11 +10,15 @@ namespace HorseManager2022.UI
     internal class ScreenMenu : Screen
     {
         // Constructor
-        public ScreenMenu(string title, Screen? previousScreen = null) 
+
+        public ScreenMenu(string title, Screen? previousScreen = null)
             : base(title, previousScreen)
         {
+            // AddOption(new Option("Start new game", () => StartNewGame()));
+            // AddOption(new Option("Load game", () => LoadGame()));
+            // AddOption(new Option("Exit", () => Exit()));
         }
-        
+
 
         override public void Show()
         {

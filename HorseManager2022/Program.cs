@@ -2,7 +2,8 @@
 using HorseManager2022.UI;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-// Create Screens
+// Create UI
+Canvas canvas = new Canvas();
 Topbar topbar = new Topbar();
 ScreenMenu initialScreen = new ScreenMenu("Welcome to Horse Manager 2022");
 ScreenMenu loadGameScreen = new ScreenMenu("Load game", initialScreen);
@@ -11,7 +12,7 @@ ScreenHouse vetScreen = new ScreenHouse("Vet", topbar, cityScreen);
 ScreenHouse shopScreen = new ScreenHouse("Shop", topbar, cityScreen);
 ScreenHouse stableScreen = new ScreenHouse("Stable", topbar, cityScreen);
 ScreenHouse raceTrackScreen = new ScreenHouse("RaceTrack", topbar, cityScreen);
-
+canvas.screens.AddRange(new Screen[] { initialScreen, loadGameScreen, cityScreen, vetScreen, shopScreen, stableScreen, raceTrackScreen });
 
 // ---------------- Initial Screen Options ---------------- \\
 
@@ -28,7 +29,8 @@ initialScreen.AddOption(new Option("Load game", (lastScreen) => {
         {
 
             // Start game
-            cityScreen.title = "In Game Menu - " + save;
+            Game game = new Game(canvas, save);
+            cityScreen.title = "City";
             cityScreen.Show();
 
 
@@ -48,8 +50,7 @@ initialScreen.AddOption(new Option("New game", (lastScreen) => {
     
     UI.ShowCreateNewSaveScreen((savename) => {
 
-        Game game = new Game(savename);
-        game.CreateSave();
+        Game game = new Game(canvas, savename, true);
 
         // Start game
         cityScreen.title = "In Game Menu - " + savename;
@@ -249,7 +250,7 @@ topbar.AddOption(new Option("Sleep", (lastScreen) => {
 }));
 
 // ---------------- Game Start ---------------- \\
-Canvas.ShowInitialScreen();
+canvas.ShowInitialScreen();
 
 
 
