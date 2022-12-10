@@ -41,5 +41,41 @@ namespace HorseManager2022.Models
             // this.horseJockeys = new List<HorseJockey>();
             // this.events = new List<Event>();
         }
+
+        
+        // File Crud Methods
+        static public void CreateSave()
+        {
+            // Create default player
+            Player player = new();
+            string path = Game.playerPath;
+            string D = Game.DELIMITER;
+
+            // Add user to file
+            File.AppendAllText(path, player.money + D + player.date.ToSaveFormat() + Environment.NewLine);
+        }
+
+        
+        static public Player GetSave()
+        {
+            string path = Game.playerPath;
+            string D = Game.DELIMITER;
+            string[] data = File.ReadAllLines(path).First().Split(D);
+
+            return new Player(int.Parse(data[0]), new Date(int.Parse(data[1]), (Month)int.Parse(data[2]), int.Parse(data[3])));
+        }
+
+        
+        private void UpdateSave(Player player)
+        {
+            string path = Game.playerPath;
+            string D = Game.DELIMITER;
+
+            // Delete all lines
+            File.WriteAllText(path, "");
+
+            // Add user to file
+            File.AppendAllText(path, player.money + D + player.date.ToSaveFormat() + Environment.NewLine);
+        }
     }
 }

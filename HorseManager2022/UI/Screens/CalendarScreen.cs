@@ -10,35 +10,33 @@ namespace HorseManager2022.UI
     internal class CalendarScreen : ScreenWithTopbar
     {
         // Properties
-        private Calendar calendar;
+        public Calendar calendar;
         private int selectedPage;
         private int selectedYearPage;
         private Month selectedMonthPage => (Month)selectedPage;
 
         // Constructor
-        public CalendarScreen(string title, Topbar topbar, Screen? previousScreen = null)
+        public CalendarScreen(string title, Topbar topbar, Screen? previousScreen = null) 
             : base(title, topbar, previousScreen)
         {
-            calendar = new Calendar(new Date(3, Month.Summer, 1));
-            
-            calendar.AddEvent("New Year", EventType.Holiday, new Date(3, Month.Spring, 1));
-            calendar.AddEvent("New Year", EventType.Holiday, new Date(5, Month.Summer, 1));
-            calendar.AddEvent("Race 1", EventType.Race, new Date(13, Month.Spring, 1));
-            calendar.AddEvent("Demostration", EventType.Demostration, new Date(10, Month.Spring, 1));
-
+            // calendar = new Calendar(new Date(3, Month.Summer, 1));
+            calendar = new();
+            calendar.AddEvent(calendar.events); // Event.GetEventsSave();
 
             // Add options to calendar (months) all months do nothing, just return to previous screen
             for (int i = 0; i < 4; i++)
                 AddOption(Option.GetBackOption(previousScreen));
 
-            // Start at the current month page
-            selectedPage = (int)calendar.currentDate.month;
-            selectedYearPage = calendar.currentDate.year;
         }
         
         // Methods
         override public Screen? Show(Player? player)
         {
+            // Reset positions / Start at the current month page
+            selectedPosition = 0;
+            selectedPage = (int)calendar.currentDate.month;
+            selectedYearPage = calendar.currentDate.year;
+
             // Wait for option
             Option? selectedOption = WaitForOption(() =>
             {

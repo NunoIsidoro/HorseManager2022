@@ -10,10 +10,10 @@ namespace HorseManager2022.Models
     // Enum
     public enum Month
     {
-        Spring,
-        Summer,
-        Autumn,
-        Winter,
+        Spring = 0,
+        Summer = 1,
+        Autumn = 2,
+        Winter = 3,
     }
 
     /*
@@ -37,9 +37,9 @@ namespace HorseManager2022.Models
         // Constructor for 1ºst day of the calendar
         public Date()
         {
-            this.day = 1;
-            this.month = Month.Spring;
-            this.year = 1;
+            day = 1;
+            month = Month.Spring;
+            year = 1;
         }
 
 
@@ -84,19 +84,19 @@ namespace HorseManager2022.Models
             string date = "";
 
             // Add year
-            date += this.day + " ";
+            date += day + " ";
 
             // Add month
             date += ToString(month);
 
             // Add day
-            date += " " + (this.year + Calendar.BASE_YEAR);
+            date += " " + (year + Calendar.BASE_YEAR);
             
             return date;
         }
         
         static public string? ToString(Month month) => Enum.GetName(typeof(Month), month);
 
-        public string ToSaveFormat() => this.day + ";" + this.month + ";" + this.year;
+        public string ToSaveFormat() => day + ";" + (int)month + ";" + year;
     }
 }

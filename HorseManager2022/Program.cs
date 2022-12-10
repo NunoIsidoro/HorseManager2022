@@ -2,7 +2,6 @@
 using HorseManager2022.Models;
 using HorseManager2022.UI;
 using HorseManager2022.UI.Dialogs;
-using System.Globalization;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -33,7 +32,7 @@ initialScreen.AddOption("Load game", loadGameScreen, () => {
 
             // Start game
             Game.saveName = save;
-            player = Game.GetPlayer();
+            player = Player.GetSave();
             cityScreen.title = "City";
 
         });
@@ -51,8 +50,8 @@ initialScreen.AddOption("New game", initialScreen, () => {
     UI.ShowCreateNewSaveScreen((savename) => {
 
         Game.saveName = savename;
-        Game.CreateSave();
-        player = Game.GetPlayer();
+        Game.CreateNewSave();
+        player = Player.GetSave();
         cityScreen.title = "In Game Menu - " + savename;
 
     });
@@ -187,7 +186,9 @@ raceTrackScreen.AddOption("Race", raceTrackScreen, () => {
 /*
     [Topbar] --> Calendar [Option]
 */
-topbar.AddOption("Calendar", calendarScreen, () => {});
+topbar.AddOption("Calendar", calendarScreen, () => {
+    calendarScreen.calendar = new Calendar(player?.date, Event.GetEventsSave());
+});
 
 
 /*

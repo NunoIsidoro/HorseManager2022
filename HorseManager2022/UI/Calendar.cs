@@ -14,26 +14,33 @@ namespace HorseManager2022.UI
         static readonly public int BASE_YEAR = 2021;
         private const int DAYS_IN_WEEK = 7;
         private const int WEEKS_IN_MONTH = 4;
-        private const int DEFAULT_MOUSE_POSITION_Y = 15;
+        private const int DEFAULT_MOUSE_POSITION_Y = 22;
 
         // Properties
-        private List<Event> events { get; set; }
+        public List<Event> events { get; set; }
         public Date currentDate { get; set; }
 
         // Constructor
-        public Calendar(Date currentDate)
+        public Calendar(Date? currentDate, List<Event> events)
+        {
+            this.currentDate = currentDate ?? new Date();
+            this.events = events;
+        }
+        
+        public Calendar()
         {
             events = new List<Event>();
-            this.currentDate = currentDate;
+            currentDate = new();
         }
 
         // Methods
-        public void AddEvent(string name, EventType type, Date date)
-        {
+        public void AddEvent(string name, EventType type, Date date) =>
             events.Add(new Event(name, type, date));
-        }
 
         
+        public void AddEvent(List<Event> events) => this.events.AddRange(events);
+
+
         public void ClearEvents() => events.Clear();
 
         
@@ -52,7 +59,7 @@ namespace HorseManager2022.UI
             title = title.PadLeft((30 / 2) + (title.Length / 2)).PadRight(30);
 
             // Draw previous output but mark current day and events
-            Console.WriteLine("*------------------------------*");
+            Console.WriteLine("+------------------------------+");
             Console.WriteLine("|" + title + "|");
             Console.WriteLine("|------------------------------|");
             Console.WriteLine("|  Su  Mo  Tu  We  Th  Fr  Sa  |");
@@ -71,7 +78,7 @@ namespace HorseManager2022.UI
                 Console.WriteLine("|                              |");
             }
 
-            Console.WriteLine("*------------------------------*");
+            Console.WriteLine("+------------------------------+");
             Console.WriteLine("[<] Back [>] Next     [Page " + (page + 1) + "/4]");
             Console.WriteLine();
 
@@ -124,15 +131,15 @@ namespace HorseManager2022.UI
         private void ShowEvents(Month monthPage, int yearPage)
         {
             // Draw Event List on the right
-            int x = 40, y = Topbar.TOPBAR_HEIGHT;
+            int x = 34, y = Topbar.TOPBAR_HEIGHT;
             Console.SetCursorPosition(x, y);
-            Console.WriteLine("*------------------------------*");
+            Console.WriteLine("+--------------------------------------+");
             Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine("|            Events            |");
+            Console.WriteLine("|                Events                |");
             Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine("|------------------------------|");
+            Console.WriteLine("|--------------------------------------|");
             Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine("|                              |");
+            Console.WriteLine("|                                      |");
 
             // Order events by day
             List<Event> orderedEvents = events.OrderBy(e => e.date.day).ToList();
@@ -146,22 +153,26 @@ namespace HorseManager2022.UI
                     continue;
                 
                 // Get Line values
-                string eventName = e.name.PadRight(22);
+                string eventName = e.name.PadRight(29);
                 string day = e.date.day.ToString();
                 if (e.date.day < 10)
                     day = "0" + day;
 
                 // Display Values
                 Console.SetCursorPosition(x, y + pos);
-                Console.WriteLine("| " + day + " -> " + eventName + " |");
+                Console.Write("| ");
+                Console.ForegroundColor = Event.GetEventTypeColor(e.type);
+                Console.Write("•");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" " + day + " -> " + eventName + "|");
                 Console.SetCursorPosition(x, y + pos + 1);
-                Console.WriteLine("|                              |");
+                Console.WriteLine("|                                      |");
                 pos += 2;
             }
 
             // Display Bottom List
             Console.SetCursorPosition(x, y + pos);
-            Console.WriteLine("+------------------------------+");
+            Console.WriteLine("+--------------------------------------+");
         }
 
         

@@ -33,13 +33,13 @@ namespace HorseManager2022.UI
                 return;
 
             // ---------------- 1º Line ---------------- \\
-            Console.Write("*------------------");
+            Console.Write("+------------------");
             for (int i = 0; i < options.Count + 1; i++)
             {
                 Console.Write("------------------");
                 
                 if (i == options.Count)
-                    Console.WriteLine("*");
+                    Console.WriteLine("+");
             }
 
             // ---------------- 2º Line ---------------- \\
@@ -107,13 +107,13 @@ namespace HorseManager2022.UI
             }
 
             // ---------------- 7º Line ---------------- \\
-            Console.Write("*------------------");
+            Console.Write("+------------------");
             for (int i = 0; i < options.Count + 1; i++)
             {
                 Console.Write("------------------");
                 
                 if (i == options.Count)
-                    Console.WriteLine("*");
+                    Console.WriteLine("+");
             }
         }
 

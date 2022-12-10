@@ -11,23 +11,17 @@ namespace HorseManager2022
     static internal class Game
     {
         // Properties
+        static public string DELIMITER = ";";
         static public string saveName = "default";
+        static private string rootPath => Directory.GetCurrentDirectory() + "\\saves\\";
+        static private string savePath => rootPath + saveName + "\\";
 
-        static private string rootPath
-        {
-            get
-            {
-                return Directory.GetCurrentDirectory() + "\\saves\\";
-            }
-        }
-
-        static private string savePath
-        {
-            get
-            {
-                return rootPath + saveName + "\\";
-            }
-        }
+        // Save Paths
+        static public string playerPath => savePath + "player.txt";
+        static public string horsePath => savePath + "horses.txt";
+        static public string jockeyPath => savePath + "jockeys.txt";
+        static public string horseJockeyPath => savePath + "horseJockeys.txt";
+        static public string eventPath => savePath + "events.txt";
 
         // Get all folder names in rootPath folder
         static public string[] saves
@@ -55,10 +49,11 @@ namespace HorseManager2022
         }
 
 
-        static public void CreateSave()
+        static public void CreateNewSave()
         {
+            // Create save folder
             CreateFolder();
-            
+
             // Create all files
             CreateFile("player.txt");
             CreateFile("horses.txt");
@@ -68,7 +63,9 @@ namespace HorseManager2022
             CreateFile("events.txt");
 
             // Create objects
-            CreatePlayer(new Player(10, new Date()));
+            Player.CreateSave();
+            Event.CreateSave();
+            
         }
 
 
@@ -85,93 +82,5 @@ namespace HorseManager2022
         }
 
 
-        /*
-            Crud Methods for files
-        */
-
-        // Player [GET / POST / PUT / DELETE]
-
-        static public void CreatePlayer(Player player)
-        {
-            string path = savePath + "player.txt";
-
-            // Add user to file
-            File.AppendAllText(path, player.money + ";" + player.date.ToSaveFormat() + Environment.NewLine);
-        }
-
-        static public Player GetPlayer()
-        {
-            string path = savePath + "player.txt";
-
-            string[] data = File.ReadAllLines(path).First().Split(';');
-            
-            return new Player(int.Parse(data[0]), new Date(int.Parse(data[1]), (Month)int.Parse(data[2]), int.Parse(data[3])));
-        }
-
-        static public void UpdatePlayer(Player player)
-        {
-            string path = savePath + "player.txt";
-
-            // Delete all lines
-            File.WriteAllText(path, "");
-
-            // Add user to file
-            File.AppendAllText(path, player.money + ";" + player.date.ToSaveFormat() + Environment.NewLine);
-        }
-
-        // Horses [GET / POST / PUT / DELETE]
-        /*
-        public void CreateHorse(Horse horse)
-        {
-            string path = this.savePath + "horses.txt";
-            string[] lines = File.ReadAllLines(path);
-
-            // Check if horse already exists
-            foreach (string line in lines)
-            {
-                if (line.Split(";")[0] == horse.name)
-                    throw new Exception("Horse already exists");
-            }
-
-            // Add horse to file
-            File.AppendAllText(path, horse.name + ";" + horse.age);
-        }
-
-        public Horse GetHorse(string name)
-        {
-            string path = this.savePath + "horses.txt";
-            string[] lines = File.ReadAllLines(path);
-
-            // Check if horse already exists
-            foreach (string line in lines)
-            {
-                if (line.Split(";")[0] == name)
-                {
-                    string[] data = line.Split(";");
-                    return new Horse(data[0], int.Parse(data[1]));
-                }
-            }
-
-            throw new Exception("Horse does not exist");
-        }
-
-        public void UpdateHorse(Horse horse)
-        {
-            string path = this.savePath + "horses.txt";
-            string[] lines = File.ReadAllLines(path);
-
-            // Check if horse already exists
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (lines[i].Split(";")[0] == horse.name)
-                {
-                    lines[i] = horse.name + ";" + horse.age;
-                    File.WriteAllLines(path, lines);
-                    return;
-                }
-            }
-
-            throw new Exception("Horse does not exist");
-        }*/
     }
 }

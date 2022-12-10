@@ -37,12 +37,14 @@ namespace HorseManager2022.UI
             : base(title, topbar, previousScreen)
         {
             arrow = new Arrow(22, -12, Topbar.TOPBAR_HEIGHT);
-            menuMode = MenuMode.Down;
         }
 
 
         override public Screen? Show(Player? player)
         {
+            // Reset positions
+            selectedPosition = 0;
+            menuMode = MenuMode.Down;
 
             // Wait for option
             Option? selectedOption = WaitForOption(() =>

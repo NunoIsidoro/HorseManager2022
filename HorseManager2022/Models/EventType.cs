@@ -9,9 +9,8 @@ namespace HorseManager2022.Models
 {
     public enum EventType
     {
-        Race,
-        Demostration,
-        Holiday,
-        //Birthday
+        Holiday = 0,
+        Race = 1,
+        Demostration = 2,
     }
 }
