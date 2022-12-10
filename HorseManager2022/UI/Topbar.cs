@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HorseManager2022.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,11 @@ namespace HorseManager2022.UI
         }
 
 
-        public void Draw(ScreenWithTopbar screen)
+        public void Draw(ScreenWithTopbar screen, Player? player)
         {
+            if (player == null)
+                return;
+
             // ---------------- 1º Line ---------------- \\
             Console.Write("*------------------");
             for (int i = 0; i < options.Count + 1; i++)
@@ -39,7 +43,8 @@ namespace HorseManager2022.UI
             }
 
             // ---------------- 2º Line ---------------- \\
-            Console.Write("|  Username        ");
+            string saveNameLabel = Game.saveName.PadRight(16);
+            Console.Write("|  " + saveNameLabel);
             for (int i = 0; i < options.Count + 1; i++)
             {
                 if (i == selectedPosition && screen.menuMode == MenuMode.Up)
@@ -65,7 +70,8 @@ namespace HorseManager2022.UI
             }
 
             // ---------------- 4º Line ---------------- \\
-            Console.Write("|  10 €            ");
+            string moneyLabel = player.money.ToString("C").PadRight(16);
+            Console.Write("|  " + moneyLabel);
             for (int i = 0; i < options.Count + 1; i++)
             {
                 string name = (i == options.Count) ? "Back" : options[i].text;
@@ -90,7 +96,8 @@ namespace HorseManager2022.UI
             }
 
             // ---------------- 6º Line ---------------- \\
-            Console.Write("|  10/02/2022      ");
+            string dateLabel = player.date.ToString().PadRight(16);
+            Console.Write("|  " + dateLabel);
             for (int i = 0; i < options.Count + 1; i++)
             {
                 Console.Write("|             |   ");

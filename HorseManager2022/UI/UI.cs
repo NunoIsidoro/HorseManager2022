@@ -8,44 +8,6 @@ namespace HorseManager2022.UI
 {
     static class UI
     {
-        // Show Load Game Screen
-        public static void ShowLoadGameScreen(Screen lastScreen)
-        {
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|             Saves             |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| No saves found! :(            |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine();
-            Console.WriteLine("Press any key to return to the menu...");
-            Console.ReadLine();
-
-            // Return to previous screenMenu
-            lastScreen.Show();
-        }
-
-        // Show New Game Screen
-        public static void ShowNewGameScreen(Screen nextScreen)
-        {
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|      Choose a save name       |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("| No saves found! :(            |");
-            Console.WriteLine("|                               |");
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine();
-            Console.WriteLine("Press any key to return to the menu...");
-            Console.ReadLine();
-
-            // Return to previous screenMenu
-            nextScreen.Show();
-        }
-
         // Show Credit Screen
         public static void ShowCreditScreen()
         {
@@ -87,47 +49,5 @@ namespace HorseManager2022.UI
 
             onComplete(savename);
         }
-
-        
-        /*
-        // Show Login Screen
-        public static void ShowLoginScreen(ScreenMenu lastScreen)
-        {
-            // Menu
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|             Login             |");
-            Console.WriteLine("+-------------------------------+");
-
-            // Get data
-            Console.Write("Username: ");
-            string? username = Console.ReadLine();
-            Console.Write("Password: ");
-            string? password = Console.ReadLine();
-
-            // Return to previous screenMenu
-            lastScreen.Show();
-        }
-
-        // Show Register Screen
-        public static void ShowRegisterScreen(ScreenMenu lastScreen)
-        {
-            // Menu
-            Console.Clear();
-            Console.WriteLine("+-------------------------------+");
-            Console.WriteLine("|            Register           |");
-            Console.WriteLine("+-------------------------------+");
-
-            // Get data
-            Console.Write("Username: ");
-            string? username = Console.ReadLine();
-            Console.Write("Password: ");
-            string? password = Console.ReadLine();
-
-            // Return to previous screenMenu
-            lastScreen.Show();
-        }
-        */
-
     }
 }

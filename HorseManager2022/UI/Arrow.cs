@@ -8,11 +8,13 @@ namespace HorseManager2022.UI
 {
     internal class Arrow
     {
-        public int offsetX { get; set; }
-        public int offsetY { get; set; }
+        // Properties
+        private int offsetX { get; set; }
+        private int offsetY { get; set; }
         public int selectedPosition { get; set; }
-        public int margin { get; set; }
+        private int margin { get; set; }
 
+        // Constructor
         public Arrow(int margin, int offsetX = 0, int offsetY = 0)
         {
             this.margin = margin;
@@ -21,6 +23,7 @@ namespace HorseManager2022.UI
             this.selectedPosition = 0;
         }
 
+        // Methods
         public void Draw()
         {
             int x = ((selectedPosition + 1) * margin) + offsetX;

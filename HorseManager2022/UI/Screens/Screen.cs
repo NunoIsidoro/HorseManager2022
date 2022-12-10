@@ -1,28 +1,28 @@
-﻿using System;
+﻿using HorseManager2022.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    internal class Screen : ISelectable
+    internal abstract class Screen : SelectionableObject
     {
         // Properties
         public string title;
-        public List<Option> options { get; set; }
-        public Screen? previousScreen { get; set; }
-        public virtual int selectedPosition { get; set; }
+        protected Screen? previousScreen { get; set; }
         
-        public bool isInitialScreen
+        protected bool isInitialScreen
         {
             get
             {
                 return previousScreen == null;
             }
         }
-
-
+        
+        
         // Constructor
         public Screen(string title, Screen? previousScreen = null)
         {
@@ -31,81 +31,9 @@ namespace HorseManager2022.UI
             this.previousScreen = previousScreen;
         }
 
-
-        public void AddOption(string text, Screen? nextScreen, Action onEnter)
-        {
-            options.Add(new Option(text, nextScreen, onEnter));
-        }
-
-
-        public void ClearOptions()
-        {
-            options.Clear();
-        }
         
-
-        virtual public Screen? Show()
-        {
-            return null;
-        }
+        // Methods
+        abstract public Screen? Show(Player? player);
         
-        
-        public Option WaitForOption(Action onWait)
-        {
-            Option? selectedOption = null;
-            
-            do
-            {
-                onWait();
-                
-                // Get option
-                selectedOption = SelectOption();
-
-            } while (selectedOption == null);
-
-            return selectedOption;
-        }
-        
-        
-        // Verify option selected is available
-        virtual public Option? SelectOption()
-        {
-            // Read key
-            // Console.Write("Select an option: ");
-            ConsoleKeyInfo selectedOption = Console.ReadKey();
-
-            // Check for up / down / enter / esc keys
-            switch (selectedOption.Key)
-            {
-                case ConsoleKey.UpArrow:
-                case ConsoleKey.W:
-                    if (this.selectedPosition > 0)
-                        this.selectedPosition--;
-                    else
-                        this.selectedPosition = this.options.Count;
-                    break;
-                case ConsoleKey.DownArrow:
-                case ConsoleKey.S:
-                    if (this.selectedPosition < this.options.Count)
-                        this.selectedPosition++;
-                    else
-                        this.selectedPosition = 0;
-                    break;
-                case ConsoleKey.RightArrow:
-                case ConsoleKey.Enter:
-                    if (this.selectedPosition == this.options.Count)
-                    {
-                        return Option.GetBackOption(this.previousScreen);
-                    }
-                    else
-                        return this.options[this.selectedPosition];
-                case ConsoleKey.LeftArrow:
-                    return Option.GetBackOption(this.previousScreen);
-                default:
-                    break;
-            }
-
-            return null;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HorseManager2022.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace HorseManager2022.UI
     internal class ScreenHouse : ScreenWithTopbar
     {
         // Properties
-        public BoardMenu boardMenu;
+        private BoardMenu boardMenu;
 
         // Constructor
         public ScreenHouse(string title, Topbar topbar, Screen? previousScreen = null)
@@ -18,14 +19,14 @@ namespace HorseManager2022.UI
             boardMenu = new BoardMenu("Board Menu", this, previousScreen);
         }
 
-        override public Screen? Show()
+        override public Screen? Show(Player? player)
         {
             // Wait for option
             Option? selectedOption = WaitForOption(() =>
             {
                 Console.Clear();
                 
-                topbar.Draw(this);
+                topbar.Draw(this, player);
                 DrawHouse();
 
                 boardMenu.Show();
@@ -38,7 +39,7 @@ namespace HorseManager2022.UI
         }
 
 
-        public void DrawHouse() 
+        private void DrawHouse() 
         {
             Console.WriteLine("                                                                                                   ");
             Console.WriteLine("   ___________________________________________________________________________________________");

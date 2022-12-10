@@ -9,23 +9,13 @@ namespace HorseManager2022.UI
     interface ISelectable
     {
         // Properties
-        public List<Option> options { get; set; }
-        public Screen? previousScreen { get; set; }
-        public int selectedPosition { get; set; }
-
-        public bool isInitialScreen
-        {
-            get
-            {
-                return previousScreen == null;
-            }
-        }
+        List<Option> options { get; set; }
+        int selectedPosition { get; set; }
 
         // Methods
-        public void AddOption(string text, Screen? nextScreen, Action onEnter);
-        public void ClearOptions();
-        public Option WaitForOption(Action onWait);
-        public Option? SelectOption();
-
+        void AddOption(string text, Screen? nextScreen, Action onEnter);
+        void ClearOptions();
+        Option WaitForOption(Action onWait);
+        Option? SelectOption();
     }
 }

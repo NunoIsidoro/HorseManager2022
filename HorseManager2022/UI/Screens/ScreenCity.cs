@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HorseManager2022.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,9 +39,9 @@ namespace HorseManager2022.UI
             arrow = new Arrow(22, -12, Topbar.TOPBAR_HEIGHT);
             menuMode = MenuMode.Down;
         }
-        
 
-        override public Screen? Show()
+
+        override public Screen? Show(Player? player)
         {
 
             // Wait for option
@@ -48,7 +49,7 @@ namespace HorseManager2022.UI
             {
                 Console.Clear();
 
-                topbar.Draw(this);
+                topbar.Draw(this, player);
                 DrawCity();
 
                 if (menuMode == MenuMode.Down)
@@ -62,7 +63,7 @@ namespace HorseManager2022.UI
         }
         
         
-        public void DrawCity()
+        private void DrawCity()
         {
             Console.WriteLine("                                                                                                         ");
             Console.WriteLine("                                                                                                         ");

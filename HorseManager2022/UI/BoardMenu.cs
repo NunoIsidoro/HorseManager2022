@@ -10,14 +10,14 @@ namespace HorseManager2022.UI
     internal class BoardMenu
     {
         // Constants
-        const int BOARD_MENU_X = 40;
-        const int BOARD_MENU_Y = 34;
+        private const int BOARD_MENU_X = 40;
+        private const int BOARD_MENU_Y = 34;
 
         // Properties
-        int x, y;
-        ScreenWithTopbar currentScreen;
+        private int x, y;
+        private ScreenWithTopbar currentScreen;
 
-        List<Option> options
+        private List<Option> options
         {
             get
             {
@@ -25,7 +25,7 @@ namespace HorseManager2022.UI
             }
         }
 
-        int selectedPosition
+        private int selectedPosition
         {
             get
             {
@@ -37,7 +37,7 @@ namespace HorseManager2022.UI
             }
         }
 
-        bool isSelectingDown
+        private bool isSelectingDown
         {
             get
             {
@@ -45,7 +45,7 @@ namespace HorseManager2022.UI
             }
         }
 
-        int padding
+        private int padding
         {
             get 
             {

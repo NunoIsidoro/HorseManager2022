@@ -9,7 +9,6 @@ namespace HorseManager2022.Models
     internal class Player
     {
         // Properties
-        public string name;
         public int money;
         public Date date;
 
@@ -20,9 +19,8 @@ namespace HorseManager2022.Models
         // public List<Event> events;
 
         // Constructor
-        public Player(string name, int money, Date date)
+        public Player(int money, Date date)
         {
-            this.name = name;
             this.money = money;
             this.date = date;
 
@@ -35,7 +33,6 @@ namespace HorseManager2022.Models
         // Constructor for starting player
         public Player()
         {
-            this.name = "Player";
             this.money = 10;
             this.date = new Date();
 
@@ -44,6 +41,5 @@ namespace HorseManager2022.Models
             // this.horseJockeys = new List<HorseJockey>();
             // this.events = new List<Event>();
         }
-
     }
 }

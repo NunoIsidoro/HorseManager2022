@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HorseManager2022.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace HorseManager2022.UI
     {
         // Properties
         public MenuMode menuMode;
-        public Topbar topbar;
+        protected Topbar topbar;
 
         public override int selectedPosition
         {
@@ -20,7 +21,6 @@ namespace HorseManager2022.UI
             }
             set
             {
-
                 if (menuMode == MenuMode.Down && value > options.Count)
                     value = options.Count;
 
@@ -42,7 +42,9 @@ namespace HorseManager2022.UI
         }
 
 
-        // Verify option selected is available
+        // Methods
+        override public Screen? Show(Player? player) => null;
+
         override public Option? SelectOption()
         {
             // Read key
@@ -55,21 +57,21 @@ namespace HorseManager2022.UI
 
                     if (this.selectedPosition > 0)
                         this.selectedPosition--;
-                    else
-                        this.selectedPosition = this.options.Count - 1;
+                    else {
+                        if (menuMode == MenuMode.Down)
+                            this.selectedPosition = this.options.Count - 1;
+                        else
+                            this.selectedPosition = topbar.options.Count;
+                    }
                     break;
 
                 case ConsoleKey.RightArrow:
 
-                    if (menuMode == MenuMode.Down && this.selectedPosition < this.options.Count - 1)
+                    if (menuMode == MenuMode.Down && this.selectedPosition < this.options.Count - 1
+                        || menuMode == MenuMode.Up && this.selectedPosition < this.topbar.options.Count)
                         this.selectedPosition++;
                     else
-                    {
-                        if (menuMode == MenuMode.Up && this.selectedPosition < this.topbar.options.Count)
-                            this.selectedPosition++;
-                        else
-                            this.selectedPosition = 0;
-                    }
+                        this.selectedPosition = 0;
                     break;
 
                 case ConsoleKey.UpArrow:

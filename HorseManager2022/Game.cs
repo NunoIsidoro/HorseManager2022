@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022
 {
-    internal class Game
+    static internal class Game
     {
         // Properties
-        public Player player;
-        public Canvas canvas;
-        public string saveName = "default";
+        static public string saveName = "default";
 
         static private string rootPath
         {
@@ -23,11 +21,11 @@ namespace HorseManager2022
             }
         }
 
-        private string savePath
+        static private string savePath
         {
             get
             {
-                return rootPath + this.saveName + "\\";
+                return rootPath + saveName + "\\";
             }
         }
 
@@ -56,20 +54,8 @@ namespace HorseManager2022
             }
         }
 
-        // Constructor
-        public Game(Canvas canvas, string saveName, bool isNewSave = false)
-        {
-            this.saveName = saveName;
-            this.canvas = canvas;
 
-            if (isNewSave) 
-                CreateSave();
-            
-            this.player = GetPlayer();
-        }
-        
-        
-        public void CreateSave()
+        static public void CreateSave()
         {
             CreateFolder();
             
@@ -82,61 +68,55 @@ namespace HorseManager2022
             CreateFile("events.txt");
 
             // Create objects
-            CreatePlayer(new Player(saveName, 10, new Date()));
+            CreatePlayer(new Player(10, new Date()));
         }
 
 
-        public void DeleteSave() => Directory.Delete(this.savePath, true);
+        static public void DeleteSave() => Directory.Delete(savePath, true);
 
-        private void CreateFolder() => Directory.CreateDirectory(this.savePath);
+        static private void CreateFolder() => Directory.CreateDirectory(savePath);
 
-        private void CreateFile(string fileName)
+        static private void CreateFile(string fileName)
         {
-            using (StreamWriter sw = File.CreateText(this.savePath + fileName))
+            using (StreamWriter sw = File.CreateText(savePath + fileName))
             {
                 sw.Write("");
             }
         }
-        
+
 
         /*
             Crud Methods for files
         */
 
         // Player [GET / POST / PUT / DELETE]
-        
-        public void CreatePlayer(Player player)
+
+        static public void CreatePlayer(Player player)
         {
-            string path = this.savePath + "player.txt";
+            string path = savePath + "player.txt";
 
             // Add user to file
-            File.AppendAllText(path, player.name + ";" + player.money + ";" + player.date.ToSaveFormat() + Environment.NewLine);
+            File.AppendAllText(path, player.money + ";" + player.date.ToSaveFormat() + Environment.NewLine);
         }
 
-        public Player GetPlayer()
+        static public Player GetPlayer()
         {
-            string path = this.savePath + "player.txt";
+            string path = savePath + "player.txt";
+
             string[] data = File.ReadAllLines(path).First().Split(';');
-            return new Player(data[0], int.Parse(data[1]), new Date(int.Parse(data[2]), int.Parse(data[3]), int.Parse(data[4])));
+            
+            return new Player(int.Parse(data[0]), new Date(int.Parse(data[1]), (Month)int.Parse(data[2]), int.Parse(data[3])));
         }
 
-        public void UpdatePlayer(Player player)
+        static public void UpdatePlayer(Player player)
         {
-            string path = this.savePath + "player.txt";
-            string[] lines = File.ReadAllLines(path);
+            string path = savePath + "player.txt";
 
-            // Check if user already exists
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (lines[i].Split(";")[0] == player.name)
-                {
-                    lines[i] = player.name + ";" + player.money + ";" + player.date.ToSaveFormat();
-                    File.WriteAllLines(path, lines);
-                    return;
-                }
-            }
+            // Delete all lines
+            File.WriteAllText(path, "");
 
-            throw new Exception("User does not exist");
+            // Add user to file
+            File.AppendAllText(path, player.money + ";" + player.date.ToSaveFormat() + Environment.NewLine);
         }
 
         // Horses [GET / POST / PUT / DELETE]
