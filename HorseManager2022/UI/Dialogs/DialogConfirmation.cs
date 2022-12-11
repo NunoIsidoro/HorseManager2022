@@ -29,12 +29,12 @@ namespace HorseManager2022.UI.Dialogs
                 DrawHeader();
 
                 // Write message if the message is too long add more necessary lines
-                int lines = message.Length / (WIDTH-4);
+                int lines = message.Length / (WIDTH - 4);
                 for (int i = 0; i <= lines; i++)
                 {
                     Console.SetCursorPosition(x, y + 3 + i);
                     Console.Write("| ");
-                    Console.Write(message.Substring(i * (WIDTH - 4), Math.Min((WIDTH - 4), message.Length - i * (WIDTH - 4))).PadRight(WIDTH-4));
+                    Console.Write(message.Substring(i * (WIDTH - 4), Math.Min((WIDTH - 4), message.Length - i * (WIDTH - 4))).PadRight(WIDTH - 4));
                     Console.WriteLine(" |");
                 }
 
@@ -51,35 +51,20 @@ namespace HorseManager2022.UI.Dialogs
                 Console.WriteLine("|                                      |");
                 Console.SetCursorPosition(x, y + 8 + lines);
                 Console.WriteLine("+--------------------------------------+");
-                
+
             });
-            
+
             selectedOption.onEnter();
             return selectedOption.nextScreen;
         }
 
+        
+        // Methods for each selection direction (up, down, left, right)
+        override protected void SelectLeft() => selectedPosition = (selectedPosition == 0) ? 1 : 0;
+        override protected void SelectRight() => SelectLeft();
+        override protected void SelectUp() { }
+        override protected void SelectDown() { }
+        override protected Option? SelectEnter() => options[selectedPosition];
 
-        // Select option from the list
-        override public Option? SelectOption()
-        {
-            // Read key
-            // Console.Write("Select an option: ");
-            ConsoleKeyInfo selectedOption = Console.ReadKey();
-
-            // Check for left / rigth keys
-            switch (selectedOption.Key)
-            {
-                case ConsoleKey.LeftArrow:
-                case ConsoleKey.RightArrow:
-                    selectedPosition = (selectedPosition == 0) ? 1 : 0;
-                    break;
-                case ConsoleKey.Enter:
-                    return options[selectedPosition];
-                default:
-                    return Option.GetBackOption(previousScreen);
-            }
-
-            return null;
-        }
     }
 }

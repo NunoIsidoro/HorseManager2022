@@ -65,46 +65,33 @@ namespace HorseManager2022.UI
 
         }
 
-
-        // Select option from the list
-        override public Option? SelectOption()
+        // Methods for each selection direction (up, down, left, right)
+        override protected void SelectUp()
         {
-            // Read key
-            ConsoleKeyInfo selectedOption = Console.ReadKey();
-
-            // Check for up / down / enter / arrows keys
-            switch (selectedOption.Key)
-            {
-                case ConsoleKey.UpArrow:
-                case ConsoleKey.W:
-                    if (this.selectedPosition > 0)
-                        this.selectedPosition--;
-                    else
-                        this.selectedPosition = this.options.Count;
-                    break;
-                case ConsoleKey.DownArrow:
-                case ConsoleKey.S:
-                    if (this.selectedPosition < this.options.Count)
-                        this.selectedPosition++;
-                    else
-                        this.selectedPosition = 0;
-                    break;
-                case ConsoleKey.RightArrow:
-                case ConsoleKey.Enter:
-                    if (this.selectedPosition == this.options.Count)
-                    {
-                        return Option.GetBackOption(this.previousScreen);
-                    }
-                    else
-                        return this.options[this.selectedPosition];
-                case ConsoleKey.LeftArrow:
-                    return Option.GetBackOption(this.previousScreen);
-                default:
-                    break;
-            }
-
-            return null;
+            if (this.selectedPosition > 0)
+                this.selectedPosition--;
+            else
+                this.selectedPosition = this.options.Count;
         }
 
-}
+        override protected void SelectDown()
+        {
+            if (this.selectedPosition < this.options.Count)
+                this.selectedPosition++;
+            else
+                this.selectedPosition = 0;
+        }
+
+        override protected void SelectLeft() => SelectUp();
+        override protected void SelectRight() => SelectDown();
+
+        override protected Option? SelectEnter()
+        {
+            if (this.selectedPosition == this.options.Count)
+                return Option.GetBackOption(this.previousScreen);
+            else
+                return this.options[this.selectedPosition];
+        }
+        
+    }
 }

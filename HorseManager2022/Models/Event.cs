@@ -35,7 +35,7 @@ namespace HorseManager2022.Models
                 case EventType.Holiday:
                     return ConsoleColor.Yellow;
                 default:
-                    return ConsoleColor.White;
+                    return ConsoleColor.Gray;
             }
         }
         

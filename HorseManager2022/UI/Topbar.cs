@@ -25,7 +25,7 @@ namespace HorseManager2022.UI
         {
             options.Add(new Option(text, nextScreen, onEnter));
         }
-
+        
 
         public void Draw(ScreenWithTopbar screen, Player? player)
         {

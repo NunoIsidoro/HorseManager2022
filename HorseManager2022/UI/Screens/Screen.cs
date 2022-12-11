@@ -34,6 +34,6 @@ namespace HorseManager2022.UI
         
         // Methods
         abstract public Screen? Show(Player? player);
-        
+
     }
 }

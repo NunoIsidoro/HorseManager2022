@@ -73,7 +73,7 @@ namespace HorseManager2022.UI
                 for (int j = 1; j <= DAYS_IN_WEEK; j++)
                     Console.Write(GetDayInCalendar(day++, monthPage, yearPage));
 
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
                 Console.WriteLine(" |");
                 Console.WriteLine("|                              |");
             }
@@ -165,7 +165,7 @@ namespace HorseManager2022.UI
                 Console.Write("| ");
                 Console.ForegroundColor = Event.GetEventTypeColor(e.type);
                 Console.Write("•");
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
                 Console.WriteLine(" " + day + " -> " + eventName + "|");
                 Console.SetCursorPosition(x, y + pos + 1);
                 Console.WriteLine("|                                      |");

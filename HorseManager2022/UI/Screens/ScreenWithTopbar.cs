@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    internal class ScreenWithTopbar : Screen
+    internal abstract class ScreenWithTopbar : Screen
     {
         // Properties
         public MenuMode menuMode;
@@ -40,74 +40,65 @@ namespace HorseManager2022.UI
             this.topbar = topbar;
             menuMode = MenuMode.Down;
         }
+        
 
-
-        // Methods
-        override public Screen? Show(Player? player) => null;
-
-        override public Option? SelectOption()
+        // Methods for each selection direction (up, down, left, right)
+        override protected void SelectLeft()
         {
-            // Read key
-            ConsoleKeyInfo selectedOption = Console.ReadKey();
-
-            // Check for up / down / enter / esc keys
-            switch (selectedOption.Key)
+            if (this.selectedPosition > 0)
+                this.selectedPosition--;
+            else
             {
-                case ConsoleKey.LeftArrow:
-
-                    if (this.selectedPosition > 0)
-                        this.selectedPosition--;
-                    else {
-                        if (menuMode == MenuMode.Down)
-                            this.selectedPosition = this.options.Count - 1;
-                        else
-                            this.selectedPosition = topbar.options.Count;
-                    }
-                    break;
-
-                case ConsoleKey.RightArrow:
-
-                    if (menuMode == MenuMode.Down && this.selectedPosition < this.options.Count - 1
-                        || menuMode == MenuMode.Up && this.selectedPosition < this.topbar.options.Count)
-                        this.selectedPosition++;
-                    else
-                        this.selectedPosition = 0;
-                    break;
-
-                case ConsoleKey.UpArrow:
-                case ConsoleKey.DownArrow:
-                    menuMode = (menuMode == MenuMode.Up) ? MenuMode.Down : MenuMode.Up;
-                    this.selectedPosition = 0;
-                    break;
-
-                case ConsoleKey.Enter:
-
-                    if (menuMode == MenuMode.Down)
-                    {
-                        if (this.selectedPosition == this.options.Count)
-                        {
-                            return Option.GetBackOption(this.previousScreen);
-                        }
-                        else
-                            return this.options[this.selectedPosition];
-                    }
-                    else
-                    {
-
-                        if (this.selectedPosition == this.topbar.options.Count)
-                        {
-                            return Option.GetBackOption(this.previousScreen);
-                        }
-                        else
-                            return this.topbar.options[this.selectedPosition];
-
-                    }
-
-                default:
-                    break;
+                if (menuMode == MenuMode.Down)
+                    this.selectedPosition = this.options.Count - 1;
+                else
+                    this.selectedPosition = topbar.options.Count;
             }
-
-            return null;
         }
+        
+        
+        override protected void SelectRight()
+        {
+            if (menuMode == MenuMode.Down && this.selectedPosition < this.options.Count - 1
+                        || menuMode == MenuMode.Up && this.selectedPosition < this.topbar.options.Count)
+                this.selectedPosition++;
+            else
+                this.selectedPosition = 0;
+        }
+
+        
+        override protected void SelectUp()
+        {
+            menuMode = (menuMode == MenuMode.Up) ? MenuMode.Down : MenuMode.Up;
+            this.selectedPosition = 0;
+        }
+        
+        
+        override protected void SelectDown() => SelectUp();
+
+        
+        override protected Option? SelectEnter()
+        {
+            if (menuMode == MenuMode.Down)
+            {
+                if (this.selectedPosition == this.options.Count)
+                {
+                    return Option.GetBackOption(this.previousScreen);
+                }
+                else
+                    return this.options[this.selectedPosition];
+            }
+            else
+            {
+                if (this.selectedPosition == this.topbar.options.Count)
+                {
+                    return Option.GetBackOption(this.previousScreen);
+                }
+                else
+                    return this.topbar.options[this.selectedPosition];
+
+            }
+        }
+
     }
 }

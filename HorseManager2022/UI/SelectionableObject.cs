@@ -47,9 +47,50 @@ namespace HorseManager2022.UI
             return selectedOption;
         }
 
-        
+        // Methods for each selection direction (up, down, left, right)
+        abstract protected void SelectLeft();
+        abstract protected void SelectRight();
+        abstract protected void SelectUp();
+        abstract protected void SelectDown();
+        abstract protected Option? SelectEnter();
+
         // Select option from the list
-        abstract public Option? SelectOption();
+        public Option? SelectOption()
+        {
+            // Read key
+            ConsoleKeyInfo selectedOption = Console.ReadKey();
+
+            // Check for up / down / enter / esc keys
+            switch (selectedOption.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
+                    SelectLeft();
+                    break;
+
+                case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
+                    SelectRight();
+                    break;
+
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
+                    SelectUp();
+                    break;
+
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
+                    SelectDown();
+                    break;
+
+                case ConsoleKey.Enter:
+                    return SelectEnter();
+                default:
+                    break;
+            }
+
+            return null;
+        }
     }
 
 }

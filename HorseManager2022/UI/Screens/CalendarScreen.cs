@@ -50,90 +50,69 @@ namespace HorseManager2022.UI
             return selectedOption.nextScreen;
         }
 
-        
-        override public Option? SelectOption()
+
+        // Methods for each selection direction (up, down, left, right)
+        override protected void SelectLeft()
         {
-            // Read key
-            ConsoleKeyInfo selectedOption = Console.ReadKey();
-
-            // Check for up / down / enter / esc keys
-            switch (selectedOption.Key)
+            if (menuMode == MenuMode.Up)
             {
-                case ConsoleKey.LeftArrow:
-
-                    if (menuMode == MenuMode.Up) 
-                    { 
-                        if (selectedPosition > 0)
-                            selectedPosition--;
-                        else
-                            selectedPosition = topbar.options.Count;
-                    }
-
-                    if (menuMode == MenuMode.Down)
-                    {
-                        if (selectedPage > 0)
-                            selectedPage--;
-                        else
-                            selectedPage = options.Count - 1;
-                    }
-                    
-                    break;
-
-                case ConsoleKey.RightArrow:
-
-                    if (menuMode == MenuMode.Up)
-                    {
-                        if (selectedPosition < topbar.options.Count)
-                            selectedPosition++;
-                        else
-                            selectedPosition = 0;
-                    }
-
-                    if (menuMode == MenuMode.Down)
-                    {
-                        if (selectedPage < options.Count - 1)
-                            selectedPage++;
-                        else
-                            selectedPage = 0;
-                    }
-
-                    break;
-
-                case ConsoleKey.UpArrow:
-                case ConsoleKey.DownArrow:
-                    menuMode = (menuMode == MenuMode.Up) ? MenuMode.Down : MenuMode.Up;
-                    this.selectedPosition = 0;
-                    break;
-
-                case ConsoleKey.Enter:
-
-                    if (menuMode == MenuMode.Down)
-                    {
-                        if (this.selectedPosition == this.options.Count)
-                        {
-                            return Option.GetBackOption(this.previousScreen);
-                        }
-                        else
-                            return this.options[this.selectedPosition];
-                    }
-                    else
-                    {
-
-                        if (this.selectedPosition == this.topbar.options.Count)
-                        {
-                            return Option.GetBackOption(this.previousScreen);
-                        }
-                        else
-                            return this.topbar.options[this.selectedPosition];
-
-                    }
-
-                default:
-                    break;
+                if (selectedPosition > 0)
+                    selectedPosition--;
+                else
+                    selectedPosition = topbar.options.Count;
             }
 
-            return null;
+            if (menuMode == MenuMode.Down)
+            {
+                if (selectedPage > 0)
+                    selectedPage--;
+                else
+                    selectedPage = options.Count - 1;
+            }
         }
 
+        
+        override protected void SelectRight()
+        {
+            if (menuMode == MenuMode.Up)
+            {
+                if (selectedPosition < topbar.options.Count)
+                    selectedPosition++;
+                else
+                    selectedPosition = 0;
+            }
+
+            if (menuMode == MenuMode.Down)
+            {
+                if (selectedPage < options.Count - 1)
+                    selectedPage++;
+                else
+                    selectedPage = 0;
+            }
+        }
+
+
+        override protected Option? SelectEnter()
+        {
+            if (menuMode == MenuMode.Down)
+            {
+                if (this.selectedPosition == this.options.Count)
+                {
+                    return Option.GetBackOption(this.previousScreen);
+                }
+                else
+                    return this.options[this.selectedPosition];
+            }
+            else
+            {
+                if (this.selectedPosition == this.topbar.options.Count)
+                {
+                    return Option.GetBackOption(this.previousScreen);
+                }
+                else
+                    return this.topbar.options[this.selectedPosition];
+            }
+        }
+        
     }
 }

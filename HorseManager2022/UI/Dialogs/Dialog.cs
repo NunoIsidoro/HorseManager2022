@@ -28,10 +28,7 @@ namespace HorseManager2022.UI.Dialogs
         }
 
         // Methods
-
         abstract public Screen? Show();
-        
-        override public Option? SelectOption() => null;
 
         protected void DrawHeader()
         {
