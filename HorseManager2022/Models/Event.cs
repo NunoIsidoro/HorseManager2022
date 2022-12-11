@@ -9,7 +9,7 @@ namespace HorseManager2022.Models
     internal class Event
     {
         // Constants
-        private const int EVENT_QUANTITY_YEAR = 30;
+        private const int EVENT_QUANTITY_YEAR = 20;
         // Properties
         public string name;
         public EventType type;
@@ -65,7 +65,7 @@ namespace HorseManager2022.Models
                 do
                 {
                     randomEvent = GenerateRandomEvent();
-                } while (!HasEventsOnDate(events, randomEvent.date));
+                } while (HasEventsOnDate(events, randomEvent.date));
 
                 events.Add(randomEvent);
             }
@@ -78,9 +78,8 @@ namespace HorseManager2022.Models
             File.WriteAllText(path, saveData);
         }
 
-
-        static private bool HasEventsOnDate(List<Event> events, Date date) => !events.Any(e => e.date == date);
         
+        static private bool HasEventsOnDate(List<Event> events, Date date) => events.Any(e => e.date.ToString() == date.ToString());
 
         static public List<Event> GetSave()
         {
@@ -133,7 +132,7 @@ namespace HorseManager2022.Models
             // Generate random date
             Random random = new();
             int randomDay = random.Next(1, 29);
-            int randomMonth = random.Next(0, 5);
+            int randomMonth = random.Next(0, 4);
             
             // Create date
             Date randomDate = new(randomDay, (Month)randomMonth, 1);
