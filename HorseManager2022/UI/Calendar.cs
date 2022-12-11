@@ -107,7 +107,8 @@ namespace HorseManager2022.UI
             // Day equal to current day check
             if (day == currentDate.day && month == currentDate.month && year == currentDate.year)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                if (eventInDay == null)
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                 resultFormmated = "(" + result + ")";
             }
 
@@ -148,8 +149,9 @@ namespace HorseManager2022.UI
             int pos = 4;
             foreach (Event e in orderedEvents)
             {
-                // Check if the event is in the current month and year
-                if (!Date.IsDateInThisMonth(e.date, monthPage, yearPage))
+                // Check if the event is in the current month and year and not passed
+                if (!Date.IsDateInThisMonth(e.date, monthPage, yearPage) ||
+                    Date.IsDateBeforeDate(e.date, currentDate))
                     continue;
                 
                 // Get Line values
@@ -165,6 +167,16 @@ namespace HorseManager2022.UI
                 Console.Write("•");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine(" " + day + " -> " + eventName + "|");
+                Console.SetCursorPosition(x, y + pos + 1);
+                Console.WriteLine("|                                      |");
+                pos += 2;
+            }
+
+            // no events message
+            if (pos == 4)
+            {
+                Console.SetCursorPosition(x, y + pos);
+                Console.WriteLine("| No more events in this month! :c     |");
                 Console.SetCursorPosition(x, y + pos + 1);
                 Console.WriteLine("|                                      |");
                 pos += 2;

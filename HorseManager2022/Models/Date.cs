@@ -44,6 +44,23 @@ namespace HorseManager2022.Models
 
 
         // Methods
+        public void NextDay()
+        {
+            day++;
+            if (day > 28)
+            {
+                day = 1;
+                month++;
+                if ((int)month > 3)
+                {
+                    month = Month.Spring;
+                    year++;
+
+                    // TODO: Add events for new year
+                    Event.UpdateSave(year);
+                }
+            }
+        }
 
         // Check if date is after a date
         static public bool IsDateBeforeDate(Date date1, Date date2)

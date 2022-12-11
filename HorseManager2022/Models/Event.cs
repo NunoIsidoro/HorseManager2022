@@ -41,7 +41,7 @@ namespace HorseManager2022.Models
         
 
         // File Crud Methods
-        static public void CreateSave()
+        static public void CreateSave(int year = 1)
         {
             string D = Game.DELIMITER;
             string path = Game.eventPath;
@@ -49,14 +49,14 @@ namespace HorseManager2022.Models
             List<Event> events = new();
 
             // Add Holiday Events
-            events.Add(new("New Year", EventType.Holiday, new(1, Month.Spring, 1)));
-            events.Add(new("Easter", EventType.Holiday, new(15, Month.Spring, 1)));
-            events.Add(new("Thanksgiving", EventType.Holiday, new(23, Month.Summer, 1)));
-            events.Add(new("Diwali", EventType.Holiday, new(7, Month.Summer, 1)));
-            events.Add(new("Halloween", EventType.Holiday, new(21, Month.Autumn, 1)));
-            events.Add(new("Black Friday", EventType.Holiday, new(28, Month.Autumn, 1)));
-            events.Add(new("Hanukkah", EventType.Holiday, new(18, Month.Winter, 1)));
-            events.Add(new("Christmas", EventType.Holiday, new(25, Month.Winter, 1)));
+            events.Add(new("New Year", EventType.Holiday, new(1, Month.Spring, year)));
+            events.Add(new("Easter", EventType.Holiday, new(15, Month.Spring, year)));
+            events.Add(new("Thanksgiving", EventType.Holiday, new(23, Month.Summer, year)));
+            events.Add(new("Diwali", EventType.Holiday, new(7, Month.Summer, year)));
+            events.Add(new("Halloween", EventType.Holiday, new(21, Month.Autumn, year)));
+            events.Add(new("Black Friday", EventType.Holiday, new(28, Month.Autumn, year)));
+            events.Add(new("Hanukkah", EventType.Holiday, new(18, Month.Winter, year)));
+            events.Add(new("Christmas", EventType.Holiday, new(25, Month.Winter, year)));
 
             // Add Random Events
             for (int i = 0; i < EVENT_QUANTITY_YEAR; i++)
@@ -65,24 +65,24 @@ namespace HorseManager2022.Models
                 do
                 {
                     randomEvent = GenerateRandomEvent();
-                } while (!hasEventsOnDate(events, randomEvent.date));
+                } while (!HasEventsOnDate(events, randomEvent.date));
 
                 events.Add(randomEvent);
             }
 
             // Transform events in saveData
             foreach (Event @event in events)
-                saveData += @event.name + D + (int)@event.type + D + @event.date.day + D + (int)@event.date.month + D + @event.date.year + Environment.NewLine;
+                saveData += @event.name + D + (int)@event.type + D + @event.date.day + D + (int)@event.date.month + D + year + Environment.NewLine;
 
             // Add user to file
             File.WriteAllText(path, saveData);
         }
 
 
-        static private bool hasEventsOnDate(List<Event> events, Date date) => !events.Any(e => e.date == date);
+        static private bool HasEventsOnDate(List<Event> events, Date date) => !events.Any(e => e.date == date);
         
 
-        static public List<Event> GetEventsSave()
+        static public List<Event> GetSave()
         {
             string path = Game.eventPath;
             string D = Game.DELIMITER;
@@ -100,7 +100,16 @@ namespace HorseManager2022.Models
             }
                 
             return events;
+        }
 
+        
+        static public void UpdateSave(int newYear)
+        {
+            // Clear all events in save
+            File.WriteAllText(Game.eventPath, string.Empty);
+
+            // Add new ones
+            CreateSave(newYear);
         }
 
 

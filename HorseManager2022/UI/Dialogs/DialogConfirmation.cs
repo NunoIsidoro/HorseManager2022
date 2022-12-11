@@ -26,7 +26,6 @@ namespace HorseManager2022.UI.Dialogs
             // Wait for option
             Option? selectedOption = WaitForOption(() => {
 
-                Console.Clear();
                 DrawHeader();
 
                 // Write message if the message is too long add more necessary lines
@@ -51,7 +50,7 @@ namespace HorseManager2022.UI.Dialogs
                 Console.SetCursorPosition(x, y + 7 + lines);
                 Console.WriteLine("|                                      |");
                 Console.SetCursorPosition(x, y + 8 + lines);
-                Console.WriteLine("*--------------------------------------*");
+                Console.WriteLine("+--------------------------------------+");
                 
             });
             

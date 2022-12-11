@@ -66,7 +66,7 @@ namespace HorseManager2022.Models
         }
 
         
-        private void UpdateSave(Player player)
+        public void UpdateSave()
         {
             string path = Game.playerPath;
             string D = Game.DELIMITER;
@@ -75,7 +75,7 @@ namespace HorseManager2022.Models
             File.WriteAllText(path, "");
 
             // Add user to file
-            File.AppendAllText(path, player.money + D + player.date.ToSaveFormat() + Environment.NewLine);
+            File.AppendAllText(path, money + D + date.ToSaveFormat() + Environment.NewLine);
         }
     }
 }

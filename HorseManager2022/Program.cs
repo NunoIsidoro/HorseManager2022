@@ -187,7 +187,7 @@ raceTrackScreen.AddOption("Race", raceTrackScreen, () => {
     [Topbar] --> Calendar [Option]
 */
 topbar.AddOption("Calendar", calendarScreen, () => {
-    calendarScreen.calendar = new Calendar(player?.date, Event.GetEventsSave());
+    calendarScreen.calendar = new Calendar(player?.date, Event.GetSave());
 });
 
 
@@ -195,10 +195,26 @@ topbar.AddOption("Calendar", calendarScreen, () => {
     [Topbar] --> Sleep [Option]
 */
 topbar.AddOption("Sleep", cityScreen, () => {
+    
+    DialogConfirmation dialogConfirmation = new(
+        20, // x
+        10, // y
+        "Sleep", 
+        "Are you sure you want to sleep?", 
+        initialScreen, 
+        () => {
+            // On Confirm
+            // Update current day
+            player?.date.NextDay();
 
-    Console.WriteLine("Sleep");
+            // Update save
+            player?.UpdateSave();
 
-    Console.ReadKey();
+        }, () => {
+            // On Cancel
+        });
+
+    dialogConfirmation.Show();
 
 });
 
