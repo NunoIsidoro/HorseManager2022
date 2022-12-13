@@ -10,7 +10,7 @@ namespace HorseManager2022.UI
     internal class ScreenCity : ScreenWithTopbar
     {
         // Properties
-        private Arrow arrow;
+        private readonly Arrow arrow;
 
         public override int selectedPosition { 
             get
@@ -58,10 +58,10 @@ namespace HorseManager2022.UI
                     arrow.Draw();
 
             });
-            
+
+            // Return next screen
             selectedOption.onEnter();
             return selectedOption.nextScreen;
-
         }
         
         

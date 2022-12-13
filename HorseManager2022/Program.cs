@@ -2,6 +2,7 @@
 using HorseManager2022.Models;
 using HorseManager2022.UI;
 using HorseManager2022.UI.Dialogs;
+using HorseManager2022.UI.Screens;
 using System.Numerics;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -16,6 +17,7 @@ ScreenHouse shopScreen = new("Shop", topbar, cityScreen);
 ScreenHouse stableScreen = new("Stable", topbar, cityScreen);
 ScreenHouse raceTrackScreen = new("RaceTrack", topbar, cityScreen);
 CalendarScreen calendarScreen = new("Calendar", topbar, cityScreen);
+HorseSelectionScreen horseSelectionScreen = new("Horse Selection", cityScreen);
 Player? player = null;
 
 // ---------------- Initial Screen Options ---------------- \\
@@ -45,7 +47,7 @@ initialScreen.AddOption("Load game", loadGameScreen, () => {
 /*
     Initial [Screen] --> New game [Option]
 */
-initialScreen.AddOption("New game", initialScreen, () => { 
+initialScreen.AddOption("New game", horseSelectionScreen, () => { 
 
     
     UI.ShowCreateNewSaveScreen((savename) => {
@@ -53,12 +55,37 @@ initialScreen.AddOption("New game", initialScreen, () => {
         Game.saveName = savename;
         Game.CreateNewSave();
         player = Player.GetSave();
-        cityScreen.title = "In Game Menu - " + savename;
+
+        // REMAKE THIS CODE <--------------------------------------------
+        loadGameScreen.ClearOptions();
+        foreach (string save in Game.saves)
+        {
+            loadGameScreen.AddOption(save, cityScreen, () =>
+            {
+
+                // Start game
+                Game.saveName = save;
+                player = Player.GetSave();
+                cityScreen.title = "City";
+
+            });
+        }
 
     });
     
 
 });
+
+
+/*
+   New game [Option] --> Select Horse [Option]
+
+initialScreen.AddOption("Select Horse", initialScreen, () => {
+
+    
+
+
+});*/
 
 
 /*

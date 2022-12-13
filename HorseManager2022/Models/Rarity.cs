@@ -9,8 +9,28 @@ namespace HorseManager2022.Models
     public enum Rarity
     {
         Common,
-        Uncommon,
         Rare,
+        Epic,
         Legendary
+    }
+
+    static public class RarityExtensions
+    {
+        static public ConsoleColor ToColor(Rarity rarity)
+        {
+            switch (rarity)
+            {
+                case Rarity.Common:
+                    return ConsoleColor.White;
+                case Rarity.Rare:
+                    return ConsoleColor.Blue;
+                case Rarity.Epic:
+                    return ConsoleColor.DarkMagenta;
+                case Rarity.Legendary:
+                    return ConsoleColor.Yellow;
+                default:
+                    return ConsoleColor.White;
+            }
+        }
     }
 }
