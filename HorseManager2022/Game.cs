@@ -70,7 +70,7 @@ namespace HorseManager2022
             CreateFile("events.txt");
 
             // Create objects
-            Player.CreateSave();
+            SaveManager.Add<Player>(new());
             Event.CreateSave();
             
         }

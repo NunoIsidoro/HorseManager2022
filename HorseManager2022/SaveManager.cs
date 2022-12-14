@@ -1,6 +1,7 @@
 ﻿using HorseManager2022.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,21 @@ namespace HorseManager2022
 
     static public class SaveManager
     {
-        static string PATH = Game.playerPath; // replace with actual path
-        static string DELIMITER = ";"; // replace with actual delimiter
-
+        static private string rootPath => Directory.GetCurrentDirectory() + "\\saves\\";
+        static private string PATH => rootPath + Game.saveName + "\\"; // replace with actual path
+        static private string DELIMITER = ";"; // replace with actual delimiter
+        
 
         static private T GetInstance<T>(string itemStr) where T : IDefinable => (T)Activator.CreateInstance(typeof(T), new object[] { itemStr })!;
 
 
+        static private string GetPath<T>() where T : IDefinable => PATH + typeof(T).Name + ".txt";
+        
+
         static public T? Get<T>(int id) where T : IDefinable
         {
-            string[] lines = File.ReadAllLines(PATH);
+            string path = GetPath<T>();
+            string[] lines = File.ReadAllLines(path);
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -35,7 +41,8 @@ namespace HorseManager2022
 
         static public List<T> Get<T>() where T : IDefinable
         {
-            string[] lines = File.ReadAllLines(PATH);
+            string path = GetPath<T>();
+            string[] lines = File.ReadAllLines(path);
             List<T> items = new();
 
             foreach (string itemStr in lines)
@@ -49,16 +56,18 @@ namespace HorseManager2022
 
         static public void Add<T>(T item) where T : IDefinable
         {
+            string path = GetPath<T>();
             item.id = GetAutoIncrementId<T>();
             string itemStr = item.ToSaveFormat();
 
-            File.AppendAllText(PATH, itemStr + Environment.NewLine);
+            File.AppendAllText(path, itemStr + Environment.NewLine);
         }
 
 
         static public void Update<T>(T item) where T : IDefinable
         {
-            string[] lines = File.ReadAllLines(PATH);
+            string path = GetPath<T>();
+            string[] lines = File.ReadAllLines(path);
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -70,16 +79,23 @@ namespace HorseManager2022
                 }
             }
 
-            File.WriteAllLines(PATH, lines);
+            File.WriteAllLines(path, lines);
         }
 
 
         static private int GetAutoIncrementId<T>() where T : IDefinable
         {
-            string[] lines = File.ReadAllLines(PATH);
-            string itemStr = lines.Last();
-            T item = GetInstance<T>(itemStr);
-            return item.id + 1;
+            string path = GetPath<T>();
+            string[] lines = File.ReadAllLines(path);
+
+            try
+            {
+                return GetInstance<T>(lines[^1]).id + 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }
