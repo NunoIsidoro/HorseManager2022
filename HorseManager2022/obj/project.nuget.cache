@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Yv8fIbQaaIoTDnLWujPLjSkiEH6w9z1dGhrvh/wqNh/VYYjTiACyug3s+oIJW6+8tew92lYBHle5HW7eK6j4Mw==",
+  "dgSpecHash": "PdA46JnT2o2w4ne5NM+SkS2xHt9lG5AZ03OgYsztji90nvcKOGgWb7IOCt8NWcb7AcY0tS9ygVzRkQV3ZgiECw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Miguel\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Miguel\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\Miguel\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

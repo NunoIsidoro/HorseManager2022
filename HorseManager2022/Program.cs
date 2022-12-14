@@ -231,21 +231,22 @@ raceTrackScreen.AddOption("Race", raceTrackScreen, () => {
             y += 6;
         }
         x += 3;
-        Thread.Sleep(100);
+        Thread.Sleep(120);
         
-        // Race Start / Countdown
+        // Race Start / Countdown / Music
         if (!isRaceStarted) 
         {
             isRaceStarted = true;
+            Audio.PlayRaceSong();
             DialogCounter dialogCounter = new(20, 8);
             dialogCounter.Show();
         }
-        
+
     } while (x < 72);
 
     RaceLeaderboard leaderboard = new(85, 7);
     leaderboard.Show();
-
+    Audio.PlayRaceEndSong();
     Console.ReadKey();
 
 });

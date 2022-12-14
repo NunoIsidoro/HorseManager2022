@@ -51,7 +51,7 @@ namespace HorseManager2022.UI.Dialogs
             }
 
             ShowGo();
-            Thread.Sleep(DELAY_TIME/2);
+            Thread.Sleep(DELAY_TIME);
 
         }
 
