@@ -11,14 +11,13 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 Topbar topbar = new();
 ScreenMenu initialScreen = new("Welcome to Horse Manager 2022");
 ScreenMenu loadGameScreen = new("Load game", initialScreen);
-ScreenCity cityScreen = new("City", topbar, loadGameScreen);
-ScreenHouse vetScreen = new("Vet", topbar, cityScreen);
-ScreenHouse shopScreen = new("Shop", topbar, cityScreen);
-ScreenHouse stableScreen = new("Stable", topbar, cityScreen);
-ScreenHouse raceTrackScreen = new("RaceTrack", topbar, cityScreen);
-CalendarScreen calendarScreen = new("Calendar", topbar, cityScreen);
-HorseSelectionScreen horseSelectionScreen = new("Horse Selection", cityScreen);
-Player? player = null;
+ScreenCity cityScreen = new(topbar, loadGameScreen);
+ScreenHouse vetScreen = new(topbar, cityScreen);
+ScreenHouse shopScreen = new( topbar, cityScreen);
+ScreenHouse stableScreen = new(topbar, cityScreen);
+ScreenHouse raceTrackScreen = new(topbar, cityScreen);
+CalendarScreen calendarScreen = new(topbar, cityScreen);
+HorseSelectionScreen horseSelectionScreen = new(cityScreen);
 
 // ---------------- Initial Screen Options ---------------- \\
 
@@ -26,21 +25,7 @@ Player? player = null;
     Initial [Screen] --> Load game [Option]
 */
 initialScreen.AddOption("Load game", loadGameScreen, () => {
-
-    loadGameScreen.ClearOptions();
-    foreach (string save in Game.saves)
-    {
-        loadGameScreen.AddOption(save, cityScreen, () =>
-        {
-
-            // Start game
-            Game.saveName = save;
-            player = Player.GetSave();
-            cityScreen.title = "City";
-
-        });
-    }
-
+    Game.PopulateScreenWithSaveOptions(loadGameScreen, cityScreen);
 });
 
 
@@ -54,38 +39,12 @@ initialScreen.AddOption("New game", horseSelectionScreen, () => {
 
         Game.saveName = savename;
         Game.CreateNewSave();
-        player = Player.GetSave();
-
-        // REMAKE THIS CODE <--------------------------------------------
-        loadGameScreen.ClearOptions();
-        foreach (string save in Game.saves)
-        {
-            loadGameScreen.AddOption(save, cityScreen, () =>
-            {
-
-                // Start game
-                Game.saveName = save;
-                player = Player.GetSave();
-                cityScreen.title = "City";
-
-            });
-        }
+        Game.PopulateScreenWithSaveOptions(loadGameScreen, cityScreen);
 
     });
     
 
 });
-
-
-/*
-   New game [Option] --> Select Horse [Option]
-
-initialScreen.AddOption("Select Horse", initialScreen, () => {
-
-    
-
-
-});*/
 
 
 /*
@@ -97,7 +56,11 @@ initialScreen.AddOption("Credits", initialScreen, () => { UI.ShowCreditScreen();
 /*
     City [Screen] --> Vet [Option]
 */
-cityScreen.AddOption("Vet", vetScreen, () => {});
+cityScreen.AddOption("Vet", vetScreen, () => {
+
+    Console.WriteLine("Vet");
+    Console.ReadKey();
+});
 
 /*
     Vet [Screen] --> Details [Option]
@@ -292,7 +255,7 @@ raceTrackScreen.AddOption("Race", raceTrackScreen, () => {
     [Topbar] --> Calendar [Option]
 */
 topbar.AddOption("Calendar", calendarScreen, () => {
-    calendarScreen.calendar = new Calendar(player?.date, Event.GetSave());
+    calendarScreen.calendar = new Calendar(SaveManager.Get<Player>(0).date, Event.GetSave());
 });
 
 
@@ -309,11 +272,10 @@ topbar.AddOption("Sleep", cityScreen, () => {
         initialScreen, 
         () => {
             // On Confirm
-            // Update current day
-            player?.date.NextDay();
-
-            // Update save
-            player?.UpdateSave();
+            
+            Player player = SaveManager.Get<Player>(0);
+            player.date.NextDay();
+            SaveManager.Update<Player>(player);
 
         }, () => {
             // On Cancel
@@ -323,20 +285,15 @@ topbar.AddOption("Sleep", cityScreen, () => {
 
 });
 
-/*
-DialogConfirmation dialogConfirmation = new DialogConfirmation(0, 0, "Confirmation", "Are you sure you want to exit?", initialScreen, () => { Environment.Exit(0); }, () => { });
-
-dialogConfirmation.Show();
-*/
 
 // ---------------- Game Loop ---------------- \\
 Screen? activeScreen, nextScreen;
-activeScreen = initialScreen.Show(player);
+activeScreen = initialScreen.Show();
 
 
 while (activeScreen != null)
 {
-    nextScreen = activeScreen.Show(player);
+    nextScreen = activeScreen.Show();
     activeScreen = nextScreen;
 }
 

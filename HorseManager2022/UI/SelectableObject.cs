@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HorseManager2022.Interfaces;
 
 namespace HorseManager2022.UI
 {
-    internal abstract class SelectionableObject : ISelectable
+    internal abstract class SelectableObject : ISelectable
     {
         // Properties
         public List<Option> options { get; set; }
@@ -14,7 +15,7 @@ namespace HorseManager2022.UI
 
         
         // Constructor
-        public SelectionableObject()
+        public SelectableObject()
         {
             options = new List<Option>();
         }

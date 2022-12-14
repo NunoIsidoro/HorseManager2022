@@ -1,4 +1,5 @@
-﻿using HorseManager2022.Models;
+﻿using HorseManager2022.Enums;
+using HorseManager2022.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace HorseManager2022.UI
         private Month selectedMonthPage => (Month)selectedPage;
 
         // Constructor
-        public CalendarScreen(string title, Topbar topbar, Screen? previousScreen = null) 
-            : base(title, topbar, previousScreen)
+        public CalendarScreen(Topbar topbar, Screen? previousScreen = null) 
+            : base(topbar, previousScreen)
         {
             // calendar = new Calendar(new Date(3, Month.Summer, 1));
             calendar = new();
@@ -30,7 +31,7 @@ namespace HorseManager2022.UI
         }
         
         // Methods
-        override public Screen? Show(Player? player)
+        override public Screen? Show()
         {
             // Reset positions / Start at the current month page
             selectedPosition = 0;
@@ -42,7 +43,7 @@ namespace HorseManager2022.UI
             {
                 Console.Clear();
 
-                topbar.Draw(this, player);
+                topbar.Draw(this);
                 calendar.Show(selectedMonthPage, selectedYearPage, selectedPage);
             });
 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HorseManager2022.UI;
 
-namespace HorseManager2022.UI
+namespace HorseManager2022.Interfaces
 {
     interface ISelectable
     {

@@ -13,20 +13,20 @@ namespace HorseManager2022.UI
         private BoardMenu boardMenu;
 
         // Constructor
-        public ScreenHouse(string title, Topbar topbar, Screen? previousScreen = null)
-            : base(title, topbar, previousScreen)
+        public ScreenHouse(Topbar topbar, Screen? previousScreen = null)
+            : base(topbar, previousScreen)
         {
-            boardMenu = new BoardMenu("Board Menu", this, previousScreen);
+            boardMenu = new BoardMenu(this);
         }
 
-        override public Screen? Show(Player? player)
+        override public Screen? Show()
         {
             // Wait for option
             Option? selectedOption = WaitForOption(() =>
             {
                 Console.Clear();
                 
-                topbar.Draw(this, player);
+                topbar.Draw(this);
                 DrawHouse();
 
                 boardMenu.Show();

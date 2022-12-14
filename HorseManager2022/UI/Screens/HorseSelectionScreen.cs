@@ -1,4 +1,5 @@
-﻿using HorseManager2022.Models;
+﻿using HorseManager2022.Enums;
+using HorseManager2022.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,8 @@ namespace HorseManager2022.UI.Screens
         }
         
         // Constructor
-        public HorseSelectionScreen(string title, Screen nextScreen, Screen? previousScreen = null)
-            : base(title, previousScreen)
+        public HorseSelectionScreen(Screen nextScreen, Screen? previousScreen = null)
+            : base(previousScreen)
         {
             arrow = new Arrow(36, -21, 2);
 
@@ -41,7 +42,7 @@ namespace HorseManager2022.UI.Screens
 
         }
 
-        override public Screen? Show(Player? player)
+        override public Screen? Show()
         {
             // Reset positions
             selectedPosition = 0;

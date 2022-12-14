@@ -49,6 +49,13 @@ namespace HorseManager2022
         }
 
 
+        public static void PopulateScreenWithSaveOptions(Screen screen, Screen nextScreen)
+        {
+            screen.ClearOptions();
+            foreach (string save in Game.saves)
+                screen.AddOption(save, nextScreen, () => saveName = save);
+        }
+
         static public void CreateNewSave()
         {
             // Create save folder

@@ -8,6 +8,7 @@ namespace HorseManager2022.UI
 {
     static class UI
     {
+
         // Show Credit Screen
         public static void ShowCreditScreen()
         {
@@ -45,7 +46,10 @@ namespace HorseManager2022.UI
 
             // Get data
             Console.Write("Save name: ");
-            string savename = Console.ReadLine();
+            string? savename = Console.ReadLine();
+
+            if (savename == "" || savename == null)
+                return;
 
             onComplete(savename);
         }

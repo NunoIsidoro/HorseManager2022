@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI
 {
-    internal abstract class Screen : SelectionableObject
+    internal abstract class Screen : SelectableObject
     {
         // Properties
-        public string title;
         protected Screen? previousScreen { get; set; }
         
         protected bool isInitialScreen
@@ -24,16 +23,15 @@ namespace HorseManager2022.UI
         
         
         // Constructor
-        public Screen(string title, Screen? previousScreen = null)
+        public Screen(Screen? previousScreen = null)
         {
-            this.title = title;
             options = new List<Option>();
             this.previousScreen = previousScreen;
         }
 
         
         // Methods
-        abstract public Screen? Show(Player? player);
+        abstract public Screen? Show();
 
     }
 }

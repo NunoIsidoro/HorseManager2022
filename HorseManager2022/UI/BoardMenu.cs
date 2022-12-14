@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using HorseManager2022.Enums;
 
 namespace HorseManager2022.UI
 {
@@ -54,7 +55,7 @@ namespace HorseManager2022.UI
         }
 
         // Constructor
-        public BoardMenu(string title, ScreenWithTopbar currentScreen, Screen? previousScreen = null)
+        public BoardMenu(ScreenWithTopbar currentScreen)
         {
             x = BOARD_MENU_X;
             y = BOARD_MENU_Y;

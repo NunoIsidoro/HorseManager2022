@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HorseManager2022.Enums;
+using HorseManager2022.Interfaces;
 
 namespace HorseManager2022.Models
 {
@@ -15,13 +17,28 @@ namespace HorseManager2022.Models
         public EventType type;
         public Date date;
 
-        // Constructor
+        // Constructors
         public Event(string name, EventType type, Date date)
         {
             this.name = name;
             this.type = type;
             this.date = date;
         }
+
+        public Event(List<Event>? events = null)
+        {
+            Random random = new();
+            int randomType = random.Next(1, 3);
+            type = (EventType)randomType;
+
+            name = GenerateEventName();
+            
+            do
+            {
+                date = GenerateEventDate();
+            } while (HasEventsOnDate(events, date));
+        }
+        
 
         // Methods
         static public ConsoleColor GetEventTypeColor(EventType? eventType)
@@ -38,48 +55,48 @@ namespace HorseManager2022.Models
                     return ConsoleColor.Gray;
             }
         }
-        
 
         // File Crud Methods
         static public void CreateSave(int year = 1)
         {
-            string D = Game.DELIMITER;
             string path = Game.eventPath;
             string saveData = "";
-            List<Event> events = new();
-
+            
             // Add Holiday Events
-            events.Add(new("New Year", EventType.Holiday, new(1, Month.Spring, year)));
-            events.Add(new("Easter", EventType.Holiday, new(15, Month.Spring, year)));
-            events.Add(new("Thanksgiving", EventType.Holiday, new(23, Month.Summer, year)));
-            events.Add(new("Diwali", EventType.Holiday, new(7, Month.Summer, year)));
-            events.Add(new("Halloween", EventType.Holiday, new(21, Month.Autumn, year)));
-            events.Add(new("Black Friday", EventType.Holiday, new(28, Month.Autumn, year)));
-            events.Add(new("Hanukkah", EventType.Holiday, new(18, Month.Winter, year)));
-            events.Add(new("Christmas", EventType.Holiday, new(25, Month.Winter, year)));
+            List<Event> events = new()
+            {
+                new("New Year", EventType.Holiday, new(1, Month.Spring, year)),
+                new("Easter", EventType.Holiday, new(15, Month.Spring, year)),
+                new("Thanksgiving", EventType.Holiday, new(23, Month.Summer, year)),
+                new("Diwali", EventType.Holiday, new(7, Month.Summer, year)),
+                new("Halloween", EventType.Holiday, new(21, Month.Autumn, year)),
+                new("Black Friday", EventType.Holiday, new(28, Month.Autumn, year)),
+                new("Hanukkah", EventType.Holiday, new(18, Month.Winter, year)),
+                new("Christmas", EventType.Holiday, new(25, Month.Winter, year))
+            };
 
             // Add Random Events
             for (int i = 0; i < EVENT_QUANTITY_YEAR; i++)
-            {
-                Event randomEvent;
-                do
-                {
-                    randomEvent = GenerateRandomEvent();
-                } while (HasEventsOnDate(events, randomEvent.date));
-
-                events.Add(randomEvent);
-            }
+                events.Add(new(events));
 
             // Transform events in saveData
             foreach (Event @event in events)
-                saveData += @event.name + D + (int)@event.type + D + @event.date.day + D + (int)@event.date.month + D + year + Environment.NewLine;
+                saveData += @event.ToSaveFormat();
 
             // Add user to file
             File.WriteAllText(path, saveData);
         }
 
-        
-        static private bool HasEventsOnDate(List<Event> events, Date date) => events.Any(e => e.date.ToString() == date.ToString());
+
+        public string ToSaveFormat()
+        {
+            string D = Game.DELIMITER;
+            return name + D + (int)type + D + date.ToSaveFormat() + Environment.NewLine;
+        }
+
+
+        static private bool HasEventsOnDate(List<Event>? events, Date date) => (events != null) && events.Any(e => e.date.ToString() == date.ToString());
+
 
         static public List<Event> GetSave()
         {
@@ -97,11 +114,11 @@ namespace HorseManager2022.Models
 
                 events.Add(new Event(name, type, date));
             }
-                
+
             return events;
         }
 
-        
+
         static public void UpdateSave(int newYear)
         {
             // Clear all events in save
@@ -112,21 +129,7 @@ namespace HorseManager2022.Models
         }
 
 
-        // Randomize Methods
-        static private Event GenerateRandomEvent()
-        {
-            // Generate random event
-            Random random = new();
-            int randomType = random.Next(1, 3);
-            string randomName = GenerateEventName(); //data[random.Next(0, data.Length)];
-            Date randomDate = GenerateEventDate();
-
-            // Create event
-            Event randomEvent = new(randomName, (EventType)randomType, randomDate);
-            return randomEvent;
-        }
-
-        
+        // Generate Random data Methods
         static private Date GenerateEventDate()
         {
             // Generate random date

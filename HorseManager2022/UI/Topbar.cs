@@ -1,4 +1,5 @@
-﻿using HorseManager2022.Models;
+﻿using HorseManager2022.Enums;
+using HorseManager2022.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,9 @@ namespace HorseManager2022.UI
         }
         
 
-        public void Draw(ScreenWithTopbar screen, Player? player)
+        public void Draw(ScreenWithTopbar screen)
         {
-            if (player == null)
-                return;
+            Player player = SaveManager.Get<Player>(0);
 
             // ---------------- 1º Line ---------------- \\
             Console.Write("+------------------");

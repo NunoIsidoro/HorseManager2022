@@ -1,4 +1,5 @@
-﻿using HorseManager2022.Models;
+﻿using HorseManager2022.Enums;
+using HorseManager2022.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,8 @@ namespace HorseManager2022.UI
 
         
         // Constructor
-        public ScreenWithTopbar(string title, Topbar topbar, Screen? previousScreen = null)
-            : base(title, previousScreen)
+        public ScreenWithTopbar(Topbar topbar, Screen? previousScreen = null)
+            : base(previousScreen)
         {
             this.topbar = topbar;
             menuMode = MenuMode.Down;

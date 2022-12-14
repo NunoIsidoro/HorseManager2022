@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.UI.Dialogs
 {
-    internal abstract class Dialog : SelectionableObject
+    internal abstract class Dialog : SelectableObject
     {
         // Constants
         protected const int WIDTH = 40;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HorseManager2022.UI
+namespace HorseManager2022.Enums
 {
     public enum MenuMode
     {

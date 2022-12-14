@@ -1,4 +1,5 @@
-﻿using HorseManager2022.UI;
+﻿using HorseManager2022.Enums;
+using HorseManager2022.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,6 @@ using System.Threading.Tasks;
 
 namespace HorseManager2022.Models
 {
-    // Enum
-    public enum Month
-    {
-        Spring = 0,
-        Summer = 1,
-        Autumn = 2,
-        Winter = 3,
-    }
-
     /*
         In game date class, used to keep track of the date in game. Each year have 4 months, one for each season, each month have 30 days.
      */
@@ -112,7 +104,7 @@ namespace HorseManager2022.Models
             return date;
         }
         
-        static public string? ToString(Month month) => Enum.GetName(typeof(Month), month);
+        public string? ToString(Month month) => Enum.GetName(typeof(Month), month);
 
         public string ToSaveFormat() => day + ";" + (int)month + ";" + year;
     }
