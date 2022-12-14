@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj": {}
+    "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj": {
+    "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
+        "projectUniqueName": "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
         "projectName": "HorseManager2022",
-        "projectPath": "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
-        "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andre\\Desktop\\HorseManager2022\\HorseManager2022\\obj\\",
+        "projectPath": "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\HorseManager2022.csproj",
+        "packagesPath": "C:\\Users\\Miguel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Miguel\\Source\\Repos\\HorseManager2022\\HorseManager2022\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Miguel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Windows.Extensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -55,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
