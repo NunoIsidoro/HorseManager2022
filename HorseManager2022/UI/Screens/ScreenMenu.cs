@@ -25,17 +25,17 @@ namespace HorseManager2022.UI
         override public Screen? Show()
         {
             // Variables
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             string title = this.title;
             string mark = "";
             title = title.PadLeft((37 / 2) + (title.Length / 2)).PadRight(37);
 
             // Wait for option
             Option? selectedOption = WaitForOption(() => {
-
                 // Display Title
                 Console.Clear();
                 Console.WriteLine("+---------------------------------------+");
-                Console.WriteLine("| " + title + " |");
+                Console.WriteLine("| \u2658 " + title + " |");
                 Console.WriteLine("+---------------------------------------+");
                 Console.WriteLine("|                                       |");
 
